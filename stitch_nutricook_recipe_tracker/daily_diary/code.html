@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#c6edc4",
+                        "surface-container-high": "#eae8e7",
+                        "surface": "#fbf9f8",
+                        "on-tertiary-fixed": "#231b00",
+                        "secondary": "#94492c",
+                        "tertiary-fixed-dim": "#e4c451",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-container": "#773318",
+                        "surface-container": "#f0eded",
+                        "tertiary": "#715c00",
+                        "inverse-primary": "#abd0a9",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#abd0a9",
+                        "background": "#fbf9f8",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "primary": "#436444",
+                        "secondary-fixed-dim": "#ffb59b",
+                        "tertiary-fixed": "#ffe17a",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#f7fff2",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#2e4e30",
+                        "on-surface-variant": "#424841",
+                        "outline": "#737970",
+                        "on-tertiary-fixed-variant": "#554500",
+                        "inverse-on-surface": "#f3f0f0",
+                        "surface-bright": "#fbf9f8",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e4e2e1",
+                        "inverse-surface": "#303030",
+                        "tertiary-container": "#c7a938",
+                        "on-tertiary-container": "#4d3e00",
+                        "secondary-fixed": "#ffdbcf",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#380d00",
+                        "surface-tint": "#456646",
+                        "outline-variant": "#c2c8be",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#5b7d5b",
+                        "secondary-container": "#fe9d7a",
+                        "surface-dim": "#dcd9d9",
+                        "on-secondary-fixed-variant": "#763217",
+                        "on-primary-fixed": "#012108"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "lg": "32px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "container-margin": "20px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Playfair Display"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .calorie-ring {
+            transition: stroke-dashoffset 0.6s ease-in-out;
+        }
+        .mask-gradient {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 bg-surface dark:bg-background">
+<div class="flex justify-between items-center h-16 px-container-margin w-full">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed shadow-sm">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A close-up, high-quality portrait of a smiling woman with a natural, healthy glow. She is in a bright, sunlit kitchen with soft Sage Green cabinetry in the background. The lighting is warm and organic, reflecting a modern light-mode aesthetic with soft shadows and high-key brightness, consistent with a health and wellness lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD03Vepqg9MRg-kn2FYpuKyRyHQ5LQC-4gH00Zjn9eozf2UQENYM05MKdKFm6CHLrj3f-lnnFDBNm12s_5ULCpa_jkhAsuG0TsvSCEUw15y6oyUHIRZZox4hohu1mqdBkYNJPostjUZRBD1rJ0V65zPEXJL022Lhab4aP_-tYrtzJk5KGtQRHls4gn7RBMmdhxXAS6e41aJOjS7zI6RwnEVuDlMf4BYieDmg0utq0rQwybOEUYobAzGmtqvgFdPBwI0Lh4aR9sTxbqZ"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">Nourish</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:opacity-80 transition-opacity active:scale-98">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">search</span>
+</button>
+</div>
+</header>
+<main class="px-container-margin mt-xs space-y-lg">
+<!-- Date Selector -->
+<section class="flex flex-col gap-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Your Diary</h2>
+<div class="flex items-center gap-xs text-primary font-label-md">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>October 24</span>
+</div>
+</div>
+<div class="flex gap-sm overflow-x-auto py-xs no-scrollbar mask-gradient">
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-surface-container-low text-on-surface-variant border border-transparent">
+<span class="text-label-sm font-label-sm">Mon</span>
+<span class="text-body-md font-bold">21</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-surface-container-low text-on-surface-variant">
+<span class="text-label-sm font-label-sm">Tue</span>
+<span class="text-body-md font-bold">22</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-surface-container-low text-on-surface-variant">
+<span class="text-label-sm font-label-sm">Wed</span>
+<span class="text-body-md font-bold">23</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-primary text-on-primary ring-2 ring-primary ring-offset-2">
+<span class="text-label-sm font-label-sm">Thu</span>
+<span class="text-body-md font-bold">24</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-surface-container-low text-on-surface-variant">
+<span class="text-label-sm font-label-sm">Fri</span>
+<span class="text-body-md font-bold">25</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-xl bg-surface-container-low text-on-surface-variant">
+<span class="text-label-sm font-label-sm">Sat</span>
+<span class="text-body-md font-bold">26</span>
+</div>
+</div>
+</section>
+<!-- Calories Remaining Dashboard (Bento Style) -->
+<section class="bg-surface-container-low rounded-3xl p-lg shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex flex-col md:flex-row items-center gap-lg">
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary calorie-ring" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="132" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-[32px] text-on-surface">1,240</span>
+<span class="text-label-sm text-outline uppercase tracking-wider">Remaining</span>
+</div>
+</div>
+<div class="flex-1 grid grid-cols-2 gap-sm w-full">
+<div class="bg-white p-sm rounded-2xl flex flex-col">
+<span class="text-label-sm text-outline">Consumed</span>
+<span class="font-headline-md text-primary">860</span>
+</div>
+<div class="bg-white p-sm rounded-2xl flex flex-col">
+<span class="text-label-sm text-outline">Goal</span>
+<span class="font-headline-md text-secondary">2,100</span>
+</div>
+<div class="col-span-2 bg-tertiary-fixed p-sm rounded-2xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-sm text-on-tertiary-fixed-variant">Water Intake</span>
+<span class="font-headline-md text-on-tertiary-fixed">1.8 / 2.5L</span>
+</div>
+<span class="material-symbols-outlined text-on-tertiary-fixed text-[32px]">water_drop</span>
+</div>
+</div>
+</section>
+<!-- Meal Log List -->
+<section class="space-y-md">
+<div class="flex items-center justify-between px-xs">
+<h3 class="font-headline-md text-on-surface">Daily Meals</h3>
+<span class="text-label-sm text-outline">3 items logged</span>
+</div>
+<div class="space-y-sm">
+<!-- Breakfast -->
+<div class="bg-white p-sm rounded-xl flex items-center gap-md shadow-sm border border-surface-container">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Breakfast" class="w-full h-full object-cover" data-alt="A beautiful, vibrant avocado toast topped with a perfectly poached egg and red chili flakes. The dish is served on a minimalist white ceramic plate. The lighting is soft morning sunlight, creating a fresh, appetizing atmosphere with a Sage Green and soft wood background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK_wcn98habtc8dSPxWbG1I--66ipTOLQillJ1KgVaaMHUuaJPXyfZNTWxC_mAbp60mNYOQU-LhZsMMkCv6duwOP3R35pq4it8ogstO4tqH8JGGNBRHbLOmXzZ2-h2Wr1QaIOSRgfsT3HH05191jUmYKQrrb0IXGZspSbFUqgk6-uutZ5SuqD_93oAeY8bl-SPGlp5s9Fh-lgoy9uAqW3JB1ajgqDfChBKzIdgiaVgS5DlEMxeqJCxV9bfJLjaSrAYf1HDCeLSKgYk"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-sm text-secondary font-bold uppercase tracking-tight">Breakfast</p>
+<h4 class="font-body-md font-semibold text-on-surface">Avocado Toast with Egg</h4>
+</div>
+<div class="bg-tertiary-fixed rounded-full px-xs py-[2px]">
+<span class="text-label-sm font-bold text-on-tertiary-fixed">320 kcal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Lunch -->
+<div class="bg-white p-sm rounded-xl flex items-center gap-md shadow-sm border border-surface-container">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Lunch" class="w-full h-full object-cover" data-alt="A fresh Mediterranean grain bowl featuring quinoa, roasted sweet potatoes, kale, chickpeas, and a drizzle of tahini. The bowl is captured from a top-down angle on a light stone surface. The aesthetic is clean, modern, and healthy, with soft, diffused daylight highlighting the vibrant textures of the ingredients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCViRG0cCx4_iYh5RwLDX6tUkqrbsWQ3c1-9byPWSWRiIduR6T6xuDpa92tVRIN85Tp-JmRE3jXXEr88G8VYXea3XvHmA7uKaKOA2OwljCZdqRjbfREmXkPS3fQz89FZ2JraBtLuekYdiQqmChI1WJlgoN9auXD3eu3LGs_i0UY6NpeLyrcofr-UpN5bWzfTzWBoXFKesPMnKgldaUYFX92kKHYPXgFCMynZGG3ARmpBJXGOsmA_gQby74oOOcczX0_YW3Z1dVzbSYZ"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-sm text-secondary font-bold uppercase tracking-tight">Lunch</p>
+<h4 class="font-body-md font-semibold text-on-surface">Mediterranean Buddha Bowl</h4>
+</div>
+<div class="bg-tertiary-fixed rounded-full px-xs py-[2px]">
+<span class="text-label-sm font-bold text-on-tertiary-fixed">480 kcal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dinner -->
+<div class="bg-white p-sm rounded-xl flex items-center gap-md shadow-sm border border-surface-container">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-[32px]">restaurant</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-sm text-outline font-bold uppercase tracking-tight">Dinner</p>
+<h4 class="font-body-md italic text-outline">Not logged yet</h4>
+</div>
+<button class="text-primary text-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                                Log
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB: Log Meal -->
+<button class="fixed bottom-24 right-container-margin w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center z-50 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-container-margin bg-surface z-50 bg-surface-container-low dark:bg-surface-container shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-label-sm font-label-sm">Discover</span>
+</div>
+<!-- Active Tab: Diary -->
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-label-sm font-label-sm">Diary</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-label-sm font-label-sm">Planner</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</div>
+</nav>
+<script>
+        // Micro-interaction for the calorie ring
+        document.addEventListener('DOMContentLoaded', () => {
+            const ring = document.querySelector('.calorie-ring');
+            if (ring) {
+                // Animate progress from 440 (empty) to 132 (current state)
+                ring.style.strokeDashoffset = '440';
+                setTimeout(() => {
+                    ring.style.strokeDashoffset = '132';
+                }, 300);
+            }
+        });
+    </script>
+</body></html>

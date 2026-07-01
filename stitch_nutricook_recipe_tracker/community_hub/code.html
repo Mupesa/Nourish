@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nourish Community Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f6f3f2",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#2e4e30",
+                    "primary-fixed-dim": "#abd0a9",
+                    "on-tertiary-container": "#4d3e00",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fe9d7a",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#f7fff2",
+                    "primary-fixed": "#c6edc4",
+                    "surface-container": "#f0eded",
+                    "tertiary": "#715c00",
+                    "outline-variant": "#c2c8be",
+                    "surface-dim": "#dcd9d9",
+                    "surface": "#fbf9f8",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e4e2e1",
+                    "on-surface": "#1b1c1c",
+                    "primary-container": "#5b7d5b",
+                    "on-surface-variant": "#424841",
+                    "tertiary-fixed": "#ffe17a",
+                    "on-background": "#1b1c1c",
+                    "inverse-surface": "#303030",
+                    "on-primary-fixed": "#012108",
+                    "on-secondary-fixed": "#380d00",
+                    "secondary-fixed-dim": "#ffb59b",
+                    "on-secondary-fixed-variant": "#763217",
+                    "surface-container-high": "#eae8e7",
+                    "tertiary-container": "#c7a938",
+                    "on-tertiary-fixed-variant": "#554500",
+                    "outline": "#737970",
+                    "tertiary-fixed-dim": "#e4c451",
+                    "surface-bright": "#fbf9f8",
+                    "secondary": "#94492c",
+                    "on-secondary-container": "#773318",
+                    "background": "#fbf9f8",
+                    "primary": "#436444",
+                    "on-tertiary-fixed": "#231b00",
+                    "inverse-on-surface": "#f3f0f0",
+                    "surface-container-highest": "#e4e2e1",
+                    "secondary-fixed": "#ffdbcf",
+                    "inverse-primary": "#abd0a9",
+                    "surface-tint": "#456646",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "md": "24px",
+                    "gutter": "16px",
+                    "sm": "16px",
+                    "lg": "32px",
+                    "xl": "48px",
+                    "xs": "8px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Playfair Display"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #fbf9f8; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 bg-surface dark:bg-surface flex items-center justify-between px-container-margin py-base w-full z-50 sticky">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a cheerful woman with a natural, minimalist aesthetic. She is in a bright, airy kitchen setting with soft morning sunlight streaming in, creating a warm and organic feel. The color palette is composed of soft creams, greens, and warm wood tones, perfectly aligning with a modern health-focused brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP6ZBS0Xj7kIRokLAW-txZZR_s0bKcPxggPX6xx1X1hhAGLgMjrRup9HFiDsU6nKgyENN7PJ_JDQD9v6hPp4zVED1XtMBTUAZ1eDQVO4Kv0Jql9t6OvDK9oSHeVO01aS29hszfMrhoWvkmMOetDufGLA6NlhkPWITwYHijK0-p7DxA3YtOp_EuTxn0HCaLFfk9FWcrLFfZO-ztFxk2-ulGMl91qEeU-c137QowUVmk0RcuS_XzaapDtHbPCdfHbvKCw9G0-3lfejII"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Nourish</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity duration-200">
+            notifications
+        </button>
+</header>
+<main class="max-w-xl mx-auto px-container-margin pt-sm space-y-lg">
+<!-- Page Title -->
+<section>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Community</h2>
+</section>
+<!-- Meal Snaps (Stories) -->
+<section class="space-y-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Meal Snaps</h3>
+</div>
+<div class="flex gap-md overflow-x-auto hide-scrollbar pb-xs">
+<!-- User's Story -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0">
+<div class="relative w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-secondary to-tertiary">
+<div class="w-full h-full rounded-full border-2 border-surface bg-surface-container overflow-hidden">
+<img alt="Your Story" class="w-full h-full object-cover" data-alt="A vibrant, close-up shot of a healthy breakfast bowl with fresh berries, sliced bananas, and a sprinkle of seeds. The lighting is soft and natural, emphasizing the organic textures and fresh ingredients. The overall mood is inspiring and energetic, capturing a perfect morning meal in a bright, modern kitchen environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2z8uXCpB1ZiphiRl2RAevV7F7THUPjZzZPLpCo9XI1YFwR4U2ZoDcvoezi69hzl1h4nCKRgd7z8BpSyb2VsK8LCgvo1BYABB7g99TFxG08V0GjUImoPQckHdmfhBLqEKdFYKTK-8gMYDNH55pHhHUTe6rL1tMDBlBMb_ynl5NTsoU6ekD3CzljC1tigLwNIrdFtj-NMFneR18eBRCYzA32qQR-dVt86LrsiokEVwn2588XxSaXGHMvPQdPv7pOFa42cfzKt0C0roc"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-[2px] flex items-center justify-center border-2 border-surface">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">You</span>
+</div>
+<!-- Friend Stories -->
+<div class="flex flex-col items-center gap-xs flex-shrink-0">
+<div class="w-16 h-16 rounded-full p-[2px] bg-primary">
+<div class="w-full h-full rounded-full border-2 border-surface bg-surface-container overflow-hidden">
+<img alt="Marcus" class="w-full h-full object-cover" data-alt="A high-quality lifestyle photograph of a man enjoying a green smoothie. He is in a clean, minimalist outdoor setting with soft afternoon light. The aesthetic is modern and fresh, with a focus on vitality and a healthy lifestyle. The image colors emphasize natural greens and soft earthy neutrals." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp9gJwf0VWgZJsm1Dhr_nyA9rjSpTPePr-0L5UQrXzXVb6Sru3msop2wvnjTkGggx94gHHfbhEmHwQn6kjBD-CdMoBYy1ZO534ZjGTG2pzW4X-_6vBg40rCmgwgI4rvgt31DfZaCS0-NDj83o3G_jmDdAXqoNrh-iyCvSzaKWeFJ83akMG9pFEQ8Ir6hPXHbgQ5fQQxbUxBBIM2pfUPoHoiQjZG61TuFw8QxvYTdQydqE3xv5f7cw3Bm3-Z3gvR-KASUYY3IgvdEqq"/>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">Marcus</span>
+</div>
+<div class="flex flex-col items-center gap-xs flex-shrink-0">
+<div class="w-16 h-16 rounded-full p-[2px] bg-primary">
+<div class="w-full h-full rounded-full border-2 border-surface bg-surface-container overflow-hidden">
+<img alt="Elena" class="w-full h-full object-cover" data-alt="A professional portrait of a woman in a bright, airy environment, holding a bowl of colorful fresh salad. The lighting is soft and flattering, creating a serene and healthy atmosphere. The color palette features vibrant vegetable colors against a minimalist, warm white background, embodying a modern organic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApYy0tvELaLod2e2XZdXR7gXvsMKV2uXXga8Glxmiw7U800sQyNcQF6PU2PLwqff2M2KsXxpC7E1gC34TfOkhyoDaF3L4Pd4ClF22Ab5IhIQQjyI5NDm_lCwp9TCUl6XANrM_dF2ALvnKO8dHikfZrn6UH0cWVn2t1wojQP8ehWSOArhp020gI7IXzFxcywlKD8Rivz30sS1gNkLFGfPBfwP-Ou55-v-y6-YGFDocRcmdmtutM3sFuq865U4t31qCjJBSWIaWKlT6X"/>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">Elena</span>
+</div>
+<div class="flex flex-col items-center gap-xs flex-shrink-0">
+<div class="w-16 h-16 rounded-full p-[2px] bg-primary">
+<div class="w-full h-full rounded-full border-2 border-surface bg-surface-container overflow-hidden">
+<img alt="David" class="w-full h-full object-cover" data-alt="A portrait of a man in a modern kitchen setting, smiling as he prepares a meal. The lighting is warm and inviting, highlighting the tactile qualities of the fresh ingredients on the counter. The overall visual style is minimalist and clean, with a focus on the joy of home cooking and healthy living." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhuTN8isHFTMk0f89cWtd-6q248PcBFiafWD8CLn3-OqoDyNsysq2XtMJFGtNO6M5qeAvGPFEna60fG-rTwEt9Gs1VX_D3wNlqabqaI7H52qsbBQWqOeJp8g99LHq3cil6gBRH0va--Q9q34Bw7hyn-zjvz2GlxK0OyCaljZZd4wi6sd79io4w8zTSewUZVfWJyHbpdj55Y26te4SlUB9OcD6XkdEYCxT4f4hkO9i27bK6etK7sSc9M2Gc3hhIuxoUvbpPUKu8RpDm"/>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">David</span>
+</div>
+<div class="flex flex-col items-center gap-xs flex-shrink-0">
+<div class="w-16 h-16 rounded-full p-[2px] bg-primary">
+<div class="w-full h-full rounded-full border-2 border-surface bg-surface-container overflow-hidden">
+<img alt="Chloe" class="w-full h-full object-cover" data-alt="A detailed image of a young woman in a serene, plant-filled room. She is drinking water from a minimalist glass bottle. The photography style is light-filled and airy, with a focus on natural light and soft shadows. The color palette is dominated by calming greens and soft whites, reinforcing a wellness-oriented brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuCUMKIpbKw8RGNaBbiVd92QT3lHM7l9Gsku9v_u_eTVuGEFcf4TX8MdlUjjZlDioKsX8Zo4g13NCgO1rqvtKUZJwrUH2AZs2K6zTOvbPp8pkzsLvZ6ntEl9LBiWt6ylB4pjzyNAq8Q_bKUbKYwrfX0HoFAJYN7yJVU5A0qhbWnbPQ3CwpVfjILHwbvs1egZyy8bORFIiZBmMW-5Gah2Otp5Gwno0vWnKWrQBgnqBY1UU3sUmdtu4sAr1q_Bz0YruEyE6k5txLaHBc"/>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface">Chloe</span>
+</div>
+</div>
+</section>
+<!-- Active Streaks -->
+<section class="space-y-sm">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Streaks</h3>
+<div class="flex gap-gutter overflow-x-auto hide-scrollbar">
+<!-- Streak Card 1 -->
+<div class="flex-shrink-0 bg-surface-container-low rounded-xl px-sm py-xs border border-surface-variant flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Sara" data-alt="Close up avatar of a smiling friend." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6V_U5SJzmWrAhHgRfAuLOfunkmMwRDoWzJ3k9mXxWJkHde8mpU0D7GVLXwvquFxzaZIbLmoWCxPbD3gI1RppRq4Gb16ZmGivZGPC-OItFMCtzg2qxBt2vhEpMINSndJGQj5Eyc13Bw_74smdlDkqx5NV3jULAi8lM3uqBD1JiD_FMjsM9i9jYzZJbFU0yjNmxmKahcM2p3SF2XWAhEs_4DjNPtvkQQ5v9YDt-oZ8k3XixRJRXQiAJeitiYpKh15uJoQFsNRY3JX00"/>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-bold text-on-surface">Sara</span>
+<div class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-sm font-medium text-on-secondary-container">5 Days</span>
+</div>
+</div>
+</div>
+<!-- Streak Card 2 -->
+<div class="flex-shrink-0 bg-surface-container-low rounded-xl px-sm py-xs border border-surface-variant flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Leo" data-alt="Avatar of a cheerful man." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX8cKLAU9ur2me8rHeljZq3_RhUsup7BxaLUXusjKTzZ6g_287dedIt6TtdWe9ECS8T-fpEKSPK25m8FrmsGTw_NMKAHkTpUZfFlWDJdsVslnDJfLyLzxMK38kDw-EY3FGfjTx2q7Q9x8gSTyg3CsJtveDpt2Bc9o2HMPbbxjduRS-y8icQ8XW6gFMToXwlpKCGIWVTBBHGCcL08TazX7AoDnE4R00n8Xf91OArEfTwknqsnP8cBvNMSwDVMYhOxZLIQjn07jsJoyb"/>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-bold text-on-surface">Leo</span>
+<div class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-sm font-medium text-on-secondary-container">12 Days</span>
+</div>
+</div>
+</div>
+<!-- Streak Card 3 -->
+<div class="flex-shrink-0 bg-surface-container-low rounded-xl px-sm py-xs border border-surface-variant flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Mia" data-alt="Avatar of a friend smiling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1wZ1-bpD58xctxCqBEObbfxpRA3JAt4jFirMSeG_qiLOOP4ABhiFhLklS6iIO-U552TiyrffsTGiuTNIGbBHapVIqBzH8S0a4vVvvZZ0IE2LENMJDA2zwtNZRz-TS-xE8bcrN37WR7uQsY5uUuaw6LepNv4O48ZDRc2peNYGRXqmchr9lPz5Q-8KojeGa6loHIYzgPJs4fXOeis9CjfPgC-5sxpyQoP_tylm1WoHi4f3Eh2DIb9Wexl2MUB-aQ_jUTTrrspolOJgC"/>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-bold text-on-surface">Mia</span>
+<div class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-sm font-medium text-on-secondary-container">8 Days</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Feed: Cooked Today -->
+<section class="space-y-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Cooked Today</h3>
+<!-- Feed Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.06)] overflow-hidden">
+<div class="px-sm py-sm flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<img alt="Marcus" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeT2eMh8W3yI684mf4mCe33lBkTPmwEm-3LF716s6LGK1H0l2S8wH1FuevwWGnBs_PrkFLmLkczobgmYRs4obyP4vIpowoxM65qs05ThD7I6wZQt-MeGoY5_pmuNg-nWrF6X33tgvklQcHmfkR9kM8QfJt09Ia3EUmnonceU243ZV2vepUWyAQuXOtciwugl1TOj9U9oGIcTTiax73OlVtzv4EA20W1rRBUt2cULNtf7gr1jwms9Jj-Hoq5wVCtCzYPUWcApjAWfad"/>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Marcus Chen</span>
+<span class="text-label-sm text-on-surface-variant">2 hours ago</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+<div class="relative aspect-[4/3] w-full bg-surface-container">
+<img alt="Avocado Toast" class="w-full h-full object-cover" data-alt="A beautifully plated avocado toast with a perfectly poached egg on top, sprinkled with red pepper flakes and microgreens. The dish is presented on a textured white ceramic plate set against a minimalist light wooden table. The lighting is soft and directional, highlighting the rich textures and fresh colors of the ingredients in a modern, appetizing style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB36F4AlhQWR4lkIgsgGFlCHG3oI1xZKi_oWfbeTh11tWIAgYdkDTeHGBd7sy-vSwywNd3fy5MEtDrM3WKN5NuoA2Xi-3jokwfFMkb3S2IC58RQZ7o-5ELeKScmus5nuKvtfT8K9rLpiMp_Ls3zqOP_u3EZHqsz6gKbP9W5CRzo6K488SrWskyb1xK4GHWXdeVRLPACOYrmF-Is-5UxpiOEON7HQ2uFt6O0b23S1rFfyxBcD8uWaA7z8OmtuuddIZKbMxewmFCiAnf1"/>
+<div class="absolute top-sm right-sm bg-[#FFF176] text-on-surface px-xs py-[2px] rounded-full text-label-sm font-bold shadow-sm">
+                        420 kcal
+                    </div>
+</div>
+<div class="px-sm py-sm space-y-xs">
+<p class="font-body-md text-on-surface">"Post-workout brunch! Finally mastered the perfect poached egg."</p>
+<div class="flex items-center gap-md pt-xs">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors" onclick="this.classList.toggle('text-secondary')">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-label-sm">24</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-label-sm">8</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant ml-auto">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_0_rgba(0,0,0,0.06)] overflow-hidden">
+<div class="px-sm py-sm flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<img alt="Elena" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8HLL_vceNt9EqDAFvaX_0auNM3pKVZv40tNGElD1np83JE2gtnQtZg37wl9bf7G-3rF07pbIfnZIjb478i0rkMl7UVOlqMUmG16COWB3mR3TXaNbv2SbMTBIlCnK12LgjcTBDebgYOfsNcujOAkEnVnL6DcRy3Z8JG6FKEHKXX7RGVtiVzSiFblcY_joRMkRR3J1iXHWN4hVCNX5ruwiEcXfS__vv5Us5d2MyPSulGuv7sG4JGVgyJgdiax0KUhacC1ioApylRRKA"/>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Elena Rodriguez</span>
+<span class="text-label-sm text-on-surface-variant">5 hours ago</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+<div class="relative aspect-[4/3] w-full bg-surface-container">
+<img alt="Buddha Bowl" class="w-full h-full object-cover" data-alt="A vibrant and nutrient-dense Buddha bowl featuring roasted sweet potatoes, kale, chickpeas, and a creamy tahini dressing. The bowl is captured from a top-down angle, showcasing the geometric arrangement of colors and textures. The lighting is clean and bright, emphasizing a healthy, organic lifestyle with a modern culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1QSrjfz3GrElCJKukO5Fywshqxu-LAUoSLpsL0sly4c_8XAQA8rxmMORN25VupSZHEBwAM2hhzk9RWaW8kEM58n4apTZPAhwSE0xELvj6qWORD1B-XQDrLchwSIrMr-F6meawZ7WquyeHH7PQFYG-aMYtLD9jZpsyqKEGMEk6C8tmWtVoW-Gmmef2foyWItbn7tBmls2RTNbud_uCG385BPdOh2qmb-yZLSuTLSX2US49EvK7-Q9N5-cmL4nMxDlim7o8UHlZk5iz"/>
+<div class="absolute top-sm right-sm bg-[#FFF176] text-on-surface px-xs py-[2px] rounded-full text-label-sm font-bold shadow-sm">
+                        580 kcal
+                    </div>
+</div>
+<div class="px-sm py-sm space-y-xs">
+<p class="font-body-md text-on-surface">"Meal prepping for the week. This Mediterranean bowl is a new favorite!"</p>
+<div class="flex items-center gap-md pt-xs">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors" onclick="this.classList.toggle('text-secondary')">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-label-sm">42</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-label-sm">12</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant ml-auto">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-container-margin py-sm bg-surface dark:bg-surface shadow-[0_-4px_20px_0_rgba(0,0,0,0.06)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-sm py-xs hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-label-md text-label-md">Cook</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-sm py-xs hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-md text-label-md">Track</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-xl px-sm py-xs transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-sm py-xs hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-transform duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for liking a post
+        document.querySelectorAll('button .material-symbols-outlined').forEach(icon => {
+            if(icon.innerText === 'favorite') {
+                icon.parentElement.addEventListener('click', function() {
+                    const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                    icon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                    
+                    // Increment/Decrement counter
+                    const countSpan = this.querySelector('span:last-child');
+                    let count = parseInt(countSpan.innerText);
+                    countSpan.innerText = isFilled ? count - 1 : count + 1;
+                });
+            }
+        });
+    </script>
+</body></html>

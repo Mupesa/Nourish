@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nourish - Registration</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#3e0500",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#dee4db",
+                    "on-tertiary-fixed-variant": "#474742",
+                    "error-container": "#ffdad6",
+                    "outline": "#737970",
+                    "background": "#f5fbf2",
+                    "surface": "#f5fbf2",
+                    "on-tertiary-container": "#fdffdd",
+                    "tertiary-fixed-dim": "#c9c6c0",
+                    "on-background": "#171d18",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#fd876f",
+                    "tertiary": "#5d5c57",
+                    "tertiary-fixed": "#e5e2db",
+                    "on-primary-fixed": "#012108",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f5fbf2",
+                    "surface-container-low": "#f0f5ec",
+                    "on-secondary-container": "#732010",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424841",
+                    "secondary-fixed-dim": "#ffb4a5",
+                    "on-secondary": "#ffffff",
+                    "primary": "#436444",
+                    "primary-fixed": "#c6edc4",
+                    "secondary": "#9f402d",
+                    "surface-container": "#eaf0e6",
+                    "tertiary-container": "#76756f",
+                    "on-primary-container": "#f7fff2",
+                    "surface-tint": "#456646",
+                    "on-tertiary-fixed": "#1c1c18",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#5b7d5b",
+                    "surface-dim": "#d6dcd3",
+                    "inverse-on-surface": "#edf2e9",
+                    "primary-fixed-dim": "#abd0a9",
+                    "outline-variant": "#c2c8be",
+                    "inverse-surface": "#2c322c",
+                    "surface-container-high": "#e4eae1",
+                    "surface-container-highest": "#dee4db",
+                    "inverse-primary": "#abd0a9",
+                    "on-surface": "#171d18",
+                    "on-primary-fixed-variant": "#2e4e30",
+                    "on-secondary-fixed-variant": "#802918",
+                    "secondary-fixed": "#ffdad3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "gutter": "24px",
+                    "lg": "48px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "container-max": "640px",
+                    "xl": "80px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-caps": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "button-text": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "button-text": ["16px", {"lineHeight": "20px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .progress-pill {
+            height: 4px;
+            border-radius: 999px;
+            transition: all 0.3s ease;
+        }
+        .organic-shape {
+            border-radius: 60% 40% 70% 30% / 30% 60% 40% 70%;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(107, 142, 107, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation Anchor (As per JSON, suppressed for Task-Focused screen) -->
+<!-- Applying top-level identity manually for brand consistency -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm">
+<div class="flex items-center justify-between px-gutter w-full max-w-container-max mx-auto h-16">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Nourish</h1>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center justify-start pt-24 pb-32 px-gutter w-full max-w-container-max mx-auto">
+<!-- Progress Indicator -->
+<div class="w-full flex gap-2 mb-xl">
+<div class="flex-1 progress-pill bg-primary/20 border border-primary/40"></div>
+<div class="flex-1 progress-pill bg-primary/20 border border-primary/40"></div>
+<div class="flex-1 progress-pill bg-primary/20 border border-primary/40"></div>
+<div class="flex-1 progress-pill bg-primary/20 border border-primary/40"></div>
+<div class="flex-1 progress-pill bg-primary shadow-[0_0_8px_rgba(67,100,68,0.3)]"></div>
+</div>
+<!-- Atmospheric Visual Element -->
+<div class="relative w-full h-48 mb-md overflow-hidden rounded-xl">
+
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="glass-card p-6 rounded-full organic-shape animate-pulse">
+<span class="material-symbols-outlined text-primary text-5xl" style="font-variation-settings: 'FILL' 1;">cloud_sync</span>
+</div>
+</div>
+</div>
+<!-- Main Content Column -->
+<div class="text-center w-full">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Want to save your progress?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg">
+                Create an account to sync your streaks with friends and never lose your data. It's totally optional!
+            </p>
+<!-- Action Cluster -->
+<div class="flex flex-col gap-4 w-full">
+<!-- Primary Social Option -->
+<button class="group relative flex items-center justify-center gap-3 w-full h-[56px] bg-white border border-outline-variant rounded-xl hover:border-primary hover:bg-primary-fixed-dim transition-all duration-300 active:scale-95">
+<div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<img alt="Google Logo" class="w-6 h-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo-DPsKwzE6gCY7bUxUMNrpnrPK8EJaDGst1NREoxOBsPMvvYakbZIWNAoBxioOw1YxCDxPGIaqg3O9mwIw-SpsAO4VSdxH4SKxXbcTB4_RjXYHSlHfCrhd9r2iBGQrg7qWUusyB77l-eUXOgjIbSwB9AJCwAsrtJWFO4ip31y8GGzqnxErTBSuD18UPKS0JpxiP15KUx-FQgo_q-T1jTJWivtzJkhAaQtLLHh6wL7igBLegPh44ljtQka0H_zvbMGroVAfp88yjK8"/>
+<span class="font-button-text text-button-text text-on-surface">Continue with Google</span>
+</button>
+<!-- Email Option -->
+<button class="group flex items-center justify-center gap-3 w-full h-[56px] bg-primary text-on-primary rounded-xl shadow-sm hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-button-text text-button-text">Sign Up with Email</span>
+</button>
+<div class="flex items-center gap-4 py-4">
+<div class="h-px flex-1 bg-outline-variant"></div>
+<span class="font-label-caps text-label-caps text-outline">OR</span>
+<div class="h-px flex-1 bg-outline-variant"></div>
+</div>
+<!-- Dashboard Skip Button -->
+<button class="w-full h-[56px] bg-white border-2 border-primary text-primary rounded-xl font-button-text text-button-text hover:bg-primary/5 transition-colors active:scale-95">
+                    Go to Dashboard
+                </button>
+</div>
+</div>
+<!-- Success Toast Celebration (Implicit Visual) -->
+<div class="mt-xl flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-full border border-primary/10">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-caps text-label-caps text-primary">Setup Complete</span>
+</div>
+</main>
+<!-- Footer Content -->
+<footer class="w-full mt-auto bg-transparent">
+<div class="flex flex-col items-center gap-sm py-lg w-full max-w-container-max mx-auto">
+<button class="font-label-caps text-label-caps text-secondary underline hover:text-primary transition-colors cursor-pointer active:opacity-70">
+                Skip for now, I'll do this later.
+            </button>
+<p class="font-label-caps text-label-caps text-on-surface-variant/60 mt-4">
+                © 2024 Nourish. Supportive Kitchen Friend.
+            </p>
+</div>
+</footer>
+<!-- Interactive script for subtle hover effects -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousedown', () => {
+                    btn.style.transform = 'scale(0.98)';
+                });
+                btn.addEventListener('mouseup', () => {
+                    btn.style.transform = 'scale(1)';
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body></html>

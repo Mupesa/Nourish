@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nourish - Dietary Preferences</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#3e0500",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dee4db",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "error-container": "#ffdad6",
+                        "outline": "#737970",
+                        "background": "#f5fbf2",
+                        "surface": "#f5fbf2",
+                        "on-tertiary-container": "#fdffdd",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-background": "#171d18",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fd876f",
+                        "tertiary": "#5d5c57",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-primary-fixed": "#012108",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f5fbf2",
+                        "surface-container-low": "#f0f5ec",
+                        "on-secondary-container": "#732010",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#424841",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-secondary": "#ffffff",
+                        "primary": "#436444",
+                        "primary-fixed": "#c6edc4",
+                        "secondary": "#9f402d",
+                        "surface-container": "#eaf0e6",
+                        "tertiary-container": "#76756f",
+                        "on-primary-container": "#f7fff2",
+                        "surface-tint": "#456646",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#5b7d5b",
+                        "surface-dim": "#d6dcd3",
+                        "inverse-on-surface": "#edf2e9",
+                        "primary-fixed-dim": "#abd0a9",
+                        "outline-variant": "#c2c8be",
+                        "inverse-surface": "#2c322c",
+                        "surface-container-high": "#e4eae1",
+                        "surface-container-highest": "#dee4db",
+                        "inverse-primary": "#abd0a9",
+                        "on-surface": "#171d18",
+                        "on-primary-fixed-variant": "#2e4e30",
+                        "on-secondary-fixed-variant": "#802918",
+                        "secondary-fixed": "#ffdad3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "container-max": "640px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "button-text": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "20px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .choice-card-active {
+            border-color: #436444 !important; /* Primary */
+            background-color: #f7fff2 !important; /* On-Primary-Container */
+            border-width: 2px !important;
+        }
+        .transition-all-custom {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-background h-16 flex items-center justify-between px-gutter max-w-container-max mx-auto left-0 right-0">
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Nourish</h1>
+<div class="w-6"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-container-max mx-auto px-gutter pt-24 pb-32 flex flex-col items-center">
+<!-- Progress Indicator -->
+<div class="w-full flex items-center justify-center gap-xs mb-xl">
+<div class="h-1.5 w-12 rounded-full border border-primary bg-transparent"></div>
+<div class="h-1.5 w-12 rounded-full border border-primary bg-transparent"></div>
+<div class="h-1.5 w-12 rounded-full bg-primary"></div>
+<div class="h-1.5 w-12 rounded-full bg-tertiary-fixed"></div>
+</div>
+<!-- Headline & Copy -->
+<div class="text-center mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Any dietary preferences?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">We'll tailor your recipes to match.</p>
+</div>
+<!-- Dietary Choice Chips / Bento Grid Style -->
+<div class="grid grid-cols-2 gap-sm w-full">
+<!-- Vegetarian -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="leafy_green">dual_screen</span>
+<span class="font-button-text text-button-text">Vegetarian</span>
+</button>
+<!-- Vegan -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="eco">eco</span>
+<span class="font-button-text text-button-text">Vegan</span>
+</button>
+<!-- Keto -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="bolt">bolt</span>
+<span class="font-button-text text-button-text">Keto</span>
+</button>
+<!-- Gluten-Free -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="no_meals">no_meals</span>
+<span class="font-button-text text-button-text">Gluten-Free</span>
+</button>
+<!-- Mediterranean -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="waves">waves</span>
+<span class="font-button-text text-button-text text-center">Mediterranean</span>
+</button>
+<!-- Paleo -->
+<button class="choice-card group flex flex-col items-center justify-center p-lg rounded-xl border border-outline-variant bg-surface-container-lowest transition-all-custom hover:border-primary active:scale-98" onclick="toggleChoice(this)">
+<span class="material-symbols-outlined text-primary text-4xl mb-base group-hover:scale-110 transition-transform" data-icon="outdoor_grill">outdoor_grill</span>
+<span class="font-button-text text-button-text">Paleo</span>
+</button>
+</div>
+<!-- Atmospheric Illustration Placeholder -->
+<div class="mt-lg w-full h-48 rounded-2xl overflow-hidden relative border border-outline-variant/30">
+<div class="bg-cover bg-center w-full h-full opacity-60" data-alt="A soft, watercolor-style illustration of fresh organic vegetables, including kale, heirloom tomatoes, and olive oil, laid out on a light linen tablecloth. The lighting is bright and warm, suggesting a sunny kitchen morning. The aesthetic is clean and nurturing, using the Sage Green and Cream palette of the brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDRGWVlzDEo2_6dPO0HcflZ9icWRTXL0CCO3lhNp5Pisf2wWC-EcPTVWqjnNvx4CR6pOW70KT0EwbTbYS4D5RRk-vhShIM2uS60bHhFY7iY0TfeCqqUD5H85j7M60PCjP7VolgVHI684eYnFEPgn3jvNP0hEkdkawS3KSy5AYm9k75nezvQ_2cnTBvo-FiQObweZyH4eBvYjevPOYH-KJc90wzPAs-53UCPh7FIvxT6qYA1XmRAhvxgmywCbOZCZzqmIWXBkHErQEB')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-lg py-md bg-surface border-t border-outline-variant shadow-sm rounded-t-xl">
+<!-- Back Button (Inactive state style) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-fixed-dim transition-colors px-6 py-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+<span class="font-button-text text-button-text">Back</span>
+</button>
+<!-- Next Button (Active state style) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-10 py-2 hover:opacity-90 active:scale-98 transition-all duration-200 shadow-sm">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+<span class="font-button-text text-button-text">Next</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="w-full mt-auto flex flex-col items-center gap-sm py-lg max-w-container-max mx-auto px-gutter mb-20">
+<div class="flex gap-md">
+<button class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors">Skip for now</button>
+<button class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors">Terms of Service</button>
+</div>
+<p class="font-label-caps text-label-caps text-secondary opacity-70">© 2024 Nourish. Supportive Kitchen Friend.</p>
+</footer>
+<script>
+        function toggleChoice(element) {
+            element.classList.toggle('choice-card-active');
+            
+            // Add a little haptic-like bounce on click
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                element.style.transform = '';
+            }, 100);
+
+            // Access the material symbol within to toggle fill
+            const icon = element.querySelector('.material-symbols-outlined');
+            if (element.classList.contains('choice-card-active')) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+            } else {
+                icon.style.fontVariationSettings = "'FILL' 0";
+            }
+        }
+    </script>
+</body></html>

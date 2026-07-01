@@ -1,0 +1,37 @@
+rules_version = '2';
+
+// Nourish Storage rules.
+// Meal-photo uploads (Phase 3) live under posts/{uid}/. The owner may upload
+// their own images (size- and type-capped); any signed-in user may read (feed
+// images are shared with friends; download URLs are unguessable). Everything
+// else stays locked.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    match /posts/{uid}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(uid)
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Curated recipe imagery is uploaded by trusted backend tooling (Admin SDK,
+    // which bypasses rules) and is intentionally public for fast CDN delivery.
+    match /recipes/{recipeId}/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

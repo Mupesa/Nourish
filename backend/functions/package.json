@@ -1,0 +1,41 @@
+{
+  "name": "nourish-functions",
+  "version": "0.1.0",
+  "description": "Nourish backend — Firebase Cloud Functions monolith (Auth, Profile, Calorie Engine, Diary, Nutrition).",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && npx firebase-tools emulators:start --only functions,firestore,auth,storage",
+    "shell": "npm run build && npx firebase-tools functions:shell",
+    "deploy": "npx firebase-tools deploy --only functions",
+    "logs": "npx firebase-tools functions:log",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "seed": "node lib/scripts/seed.js",
+    "catalog:generate": "node ../../tools/generate-recipe-catalog.mjs",
+    "images:upload": "node lib/scripts/upload-recipe-images.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^20.16.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.2"
+  },
+  "private": true
+}

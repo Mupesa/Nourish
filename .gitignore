@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+backend/functions/lib/
+mobile/.expo/
+mobile/.expo-catalog-check/
+mobile/dist/
+mobile/web-build/
+
+# Generated high-resolution source images are kept locally; WebP delivery
+# assets and manifests are versioned.
+content/recipes/masters/
+
+# Environment & secrets
+.env
+.env.local
+*.local
+*.local.json
+backend/functions/.env
+backend/functions/.runtimeconfig.json
+serviceAccountKey.json
+google-services.json
+GoogleService-Info.plist
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Test coverage
+coverage/

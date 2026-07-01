@@ -1,0 +1,715 @@
+{
+  "passed": true,
+  "expected": 100,
+  "prepared": 100,
+  "approvedThrough": 100,
+  "targetBytes": {
+    "minimum": 150000,
+    "maximum": 400000
+  },
+  "errors": [],
+  "warnings": [],
+  "perceptualDuplicateCandidates": [],
+  "files": [
+    {
+      "recipeId": "curated-001",
+      "bytes": 202954,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-002",
+      "bytes": 158958,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-003",
+      "bytes": 176690,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-004",
+      "bytes": 199340,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-005",
+      "bytes": 196590,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-006",
+      "bytes": 216158,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-007",
+      "bytes": 187804,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-008",
+      "bytes": 203710,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-009",
+      "bytes": 220216,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-010",
+      "bytes": 187374,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-011",
+      "bytes": 210810,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-012",
+      "bytes": 229980,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-013",
+      "bytes": 207296,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-014",
+      "bytes": 178016,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-015",
+      "bytes": 240960,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-016",
+      "bytes": 203342,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-017",
+      "bytes": 224440,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-018",
+      "bytes": 214214,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-019",
+      "bytes": 204582,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-020",
+      "bytes": 217578,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-021",
+      "bytes": 163498,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-022",
+      "bytes": 191498,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-023",
+      "bytes": 195844,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-024",
+      "bytes": 192778,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-025",
+      "bytes": 209428,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-026",
+      "bytes": 238178,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-027",
+      "bytes": 159382,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-028",
+      "bytes": 183200,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-029",
+      "bytes": 178938,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-030",
+      "bytes": 183764,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-031",
+      "bytes": 181514,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-032",
+      "bytes": 196968,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-033",
+      "bytes": 189464,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-034",
+      "bytes": 204828,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-035",
+      "bytes": 203804,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-036",
+      "bytes": 203580,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-037",
+      "bytes": 167570,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-038",
+      "bytes": 178110,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-039",
+      "bytes": 245892,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-040",
+      "bytes": 207238,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-041",
+      "bytes": 215506,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-042",
+      "bytes": 205192,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-043",
+      "bytes": 227078,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-044",
+      "bytes": 235388,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-045",
+      "bytes": 196348,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-046",
+      "bytes": 214814,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-047",
+      "bytes": 212772,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-048",
+      "bytes": 224452,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-049",
+      "bytes": 201372,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-050",
+      "bytes": 201434,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-051",
+      "bytes": 236486,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-052",
+      "bytes": 209102,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-053",
+      "bytes": 182238,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-054",
+      "bytes": 200410,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-055",
+      "bytes": 176524,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-056",
+      "bytes": 214150,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-057",
+      "bytes": 168330,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-058",
+      "bytes": 228848,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-059",
+      "bytes": 228924,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-060",
+      "bytes": 242212,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-061",
+      "bytes": 204710,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-062",
+      "bytes": 224572,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-063",
+      "bytes": 215314,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-064",
+      "bytes": 217056,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-065",
+      "bytes": 196642,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-066",
+      "bytes": 214566,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-067",
+      "bytes": 219732,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-068",
+      "bytes": 244326,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-069",
+      "bytes": 226314,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-070",
+      "bytes": 220524,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-071",
+      "bytes": 255496,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-072",
+      "bytes": 201640,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-073",
+      "bytes": 237512,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-074",
+      "bytes": 233760,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-075",
+      "bytes": 258994,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-076",
+      "bytes": 253280,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-077",
+      "bytes": 229676,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-078",
+      "bytes": 200054,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-079",
+      "bytes": 229920,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-080",
+      "bytes": 238646,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-081",
+      "bytes": 190336,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-082",
+      "bytes": 162702,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-083",
+      "bytes": 242664,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-084",
+      "bytes": 182922,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-085",
+      "bytes": 172502,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-086",
+      "bytes": 183186,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-087",
+      "bytes": 204556,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-088",
+      "bytes": 194754,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-089",
+      "bytes": 195414,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-090",
+      "bytes": 229386,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-091",
+      "bytes": 221004,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-092",
+      "bytes": 237906,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-093",
+      "bytes": 217630,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-094",
+      "bytes": 243428,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-095",
+      "bytes": 190230,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-096",
+      "bytes": 223034,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-097",
+      "bytes": 225696,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-098",
+      "bytes": 218872,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-099",
+      "bytes": 195546,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    },
+    {
+      "recipeId": "curated-100",
+      "bytes": 179596,
+      "width": 1200,
+      "height": 800,
+      "format": "WEBP"
+    }
+  ]
+}

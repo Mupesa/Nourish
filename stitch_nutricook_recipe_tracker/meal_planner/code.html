@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c6edc4",
+                    "surface-container-high": "#eae8e7",
+                    "surface": "#fbf9f8",
+                    "on-tertiary-fixed": "#231b00",
+                    "secondary": "#94492c",
+                    "tertiary-fixed-dim": "#e4c451",
+                    "on-background": "#1b1c1c",
+                    "on-secondary-container": "#773318",
+                    "surface-container": "#f0eded",
+                    "tertiary": "#715c00",
+                    "inverse-primary": "#abd0a9",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#abd0a9",
+                    "background": "#fbf9f8",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "primary": "#436444",
+                    "secondary-fixed-dim": "#ffb59b",
+                    "tertiary-fixed": "#ffe17a",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#f7fff2",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed-variant": "#2e4e30",
+                    "on-surface-variant": "#424841",
+                    "outline": "#737970",
+                    "on-tertiary-fixed-variant": "#554500",
+                    "inverse-on-surface": "#f3f0f0",
+                    "surface-bright": "#fbf9f8",
+                    "on-surface": "#1b1c1c",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e4e2e1",
+                    "inverse-surface": "#303030",
+                    "tertiary-container": "#c7a938",
+                    "on-tertiary-container": "#4d3e00",
+                    "secondary-fixed": "#ffdbcf",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#380d00",
+                    "surface-tint": "#456646",
+                    "outline-variant": "#c2c8be",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#5b7d5b",
+                    "secondary-container": "#fe9d7a",
+                    "surface-dim": "#dcd9d9",
+                    "on-secondary-fixed-variant": "#763217",
+                    "on-primary-fixed": "#012108"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "lg": "32px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "container-margin": "20px",
+                    "xl": "48px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-day {
+            position: relative;
+        }
+        .active-day::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen pb-32">
+<!-- Top AppBar -->
+<header class="sticky top-0 w-full z-40 bg-surface flex justify-between items-center h-16 px-container-margin w-full">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Nourish</h1>
+<div class="flex items-center gap-xs">
+<button class="p-2 hover:opacity-80 transition-opacity active:scale-98">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional, high-quality close-up portrait of a woman smiling warmly, set against a soft, blurred natural background. The lighting is bright and airy, reflecting a modern light-mode design aesthetic with soft shadows and natural textures. The color palette is composed of soft earth tones and warm whites, emphasizing a healthy, organic lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ynoozLHaRBwTH-B8w_8HujINYffadTfGpiGkW6ClggY7gb261g1fdAYQn0a-xeJZomqD1Uo3wAl580vpd0kzxiAl2QsR9L3Fm43ur73croKVQLVUpSynB-1xbHpRHBEPjOT1SNECk_rSpg7bsU8a0r4d53BWKNp4lM1w7ahkqWfDVe2VneXxFF0EvzyiFiNHcEGvZ_AIol3j5VXBCnxG2mHwSOum3jj-tTkowaoRVW6CZaCw4So_FpFG9fTQ62QM0AqqGJEXQ-hC"/>
+</div>
+</div>
+</header>
+<main class="px-container-margin">
+<!-- Week Selector -->
+<section class="mt-md">
+<div class="flex items-center justify-between mb-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Weekly Planner</h2>
+<span class="font-label-md text-label-md text-primary">Oct 23 - 29</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-low rounded-xl p-xs">
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>M</span>
+<span class="font-bold">23</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>T</span>
+<span class="font-bold">24</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm active-day">
+<span>W</span>
+<span class="font-bold">25</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>T</span>
+<span class="font-bold">26</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>F</span>
+<span class="font-bold">27</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>S</span>
+<span class="font-bold">28</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 py-2 rounded-lg text-on-surface-variant font-label-sm text-label-sm">
+<span>S</span>
+<span class="font-bold">29</span>
+</button>
+</div>
+</section>
+<!-- Daily Meal Plan -->
+<section class="mt-lg space-y-md">
+<!-- Breakfast -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-sm">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Breakfast</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Avocado Sourdough Toast</h3>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-xs py-1 rounded-full font-label-sm text-label-sm">420 kcal</span>
+</div>
+<div class="aspect-[16/9] rounded-lg overflow-hidden mb-sm">
+<img alt="Avocado Toast" class="w-full h-full object-cover" data-alt="A beautifully plated avocado sourdough toast with poached eggs and microgreens on a white ceramic plate. The lighting is soft morning sunlight, creating a warm, organic, and appetizing atmosphere. The scene is shot from a top-down angle, highlighting the vibrant greens of the avocado and the rich textures of the bread against a minimalist warm white table." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP69CpfmF-y05chXe79PPv10yT1-29emkP24uobC38lRIggJYqmnjqEE8aJlRkVpzCXh85s33lxK0clWEXn40cgkGN-SjztTHoFc1mbbH2um0zaYkx-CD0b4H_xKZKE_C4gYyH0e_aKSChsf1850_HErHA2VBi-K8Er48BaP6Wa7xpuj5lW25JW-SHlOT0S6zpg5IMHyyQla5Pcm-BFpW0eWYKxVAJexvMoGW_qSRQUw4HYdHm0heaBcZ-gMrdhev2MSzlvPctjnWL"/>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">15 min</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+<span class="font-label-sm text-label-sm">Medium</span>
+</div>
+</div>
+</div>
+<!-- Lunch -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-sm">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Lunch</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Mediterranean Quinoa Bowl</h3>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-xs py-1 rounded-full font-label-sm text-label-sm">580 kcal</span>
+</div>
+<div class="aspect-[16/9] rounded-lg overflow-hidden mb-sm">
+<img alt="Quinoa Bowl" class="w-full h-full object-cover" data-alt="A vibrant Mediterranean quinoa bowl filled with colorful vegetables like cherry tomatoes, cucumbers, chickpeas, and feta cheese. The composition is clean and modern, emphasizing freshness and nutritional variety. The lighting is bright and even, capturing the tactile quality of the ingredients against a soft gray background, evoking a sense of healthy nourishment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8NTYqR9fnezCvrPBVZNhUbEWW6VVSsDK66pZjWp3J1UM2IGKhZFXV3Fqeid02tpqgtZLtqATGPko3D6vPZAHzwkv_dfNuREnYWf5S34d08dcxGqdqLbc6vyoT7La_8AIOXUX_I4NqdJ24lj3jPD5VRUVXIxDYN258xoTXe2sn04-FPqYZOlysvlRXU0lIlpoeFmk__ya6KHM3PfkHVsov0vksyhBDR3AWBmheLqY4VlFKLeLKUx_oBc_qGH3I1-_YNEcSU-8jbLxj"/>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">25 min</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+<span class="font-label-sm text-label-sm">Easy</span>
+</div>
+</div>
+</div>
+<!-- Dinner -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] p-sm">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Dinner</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Honey Glazed Salmon</h3>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-xs py-1 rounded-full font-label-sm text-label-sm">650 kcal</span>
+</div>
+<div class="aspect-[16/9] rounded-lg overflow-hidden mb-sm">
+<img alt="Glazed Salmon" class="w-full h-full object-cover" data-alt="A succulent honey glazed salmon fillet served with grilled asparagus on a dark slate plate. The lighting is dramatic and moody, casting soft shadows that emphasize the glistening texture of the glaze. The style is sophisticated and culinary-focused, blending rich terracotta and sage green accents to create a premium dining atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv3VNPy8wYjmJmao-BlbyQ9eR_M5q4Qs11MzEgLGuO8UXT7zyGLuJsbP0LhySQbCggs6upJsPUXnn-tOJBa4jk9erOyA3mjIg2Jb03khzVHQ94DDgg2R8cLWTGhoi6q64pp7dbDQ4ymki0USmot5DAHl-uhGHs6mvLVevTi1Hj9rS9hl6vSaGMAJ-pYjrH9zS24L7iq8FzwWhIGhZZUj4FqMWMLUrq8Qny9on80TtlBIOdfPh1ADEqGwEUACf-vFC3sbijWY2Au0M2"/>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">30 min</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">restaurant</span>
+<span class="font-label-sm text-label-sm">Hard</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Weekly Impact Footer Card -->
+<section class="mt-xl mb-md">
+<div class="bg-primary text-on-primary p-md rounded-xl shadow-lg">
+<h3 class="font-headline-md text-headline-md mb-md">Weekly Nutritional Impact</h3>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<span class="font-label-sm text-label-sm opacity-80">Avg. Daily Calories</span>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">1,850</span>
+<span class="font-label-sm text-label-sm">kcal</span>
+</div>
+<div class="w-full h-1 bg-on-primary/20 rounded-full overflow-hidden">
+<div class="w-[85%] h-full bg-primary-fixed"></div>
+</div>
+</div>
+<div class="space-y-xs">
+<span class="font-label-sm text-label-sm opacity-80">Protein Target</span>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">110</span>
+<span class="font-label-sm text-label-sm">g / 120g</span>
+</div>
+<div class="w-full h-1 bg-on-primary/20 rounded-full overflow-hidden">
+<div class="w-[92%] h-full bg-tertiary-fixed"></div>
+</div>
+</div>
+</div>
+<div class="mt-md pt-md border-t border-on-primary/10 flex justify-between items-center">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<span class="font-label-sm text-label-sm">On track for your goal</span>
+</div>
+<button class="bg-on-primary text-primary px-sm py-2 rounded-full font-label-md text-label-md active:scale-95 transition-transform">
+                        Details
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-container-margin bg-surface bg-surface-container-low dark:bg-surface-container shadow-[0_-4px_20px_rgba(0,0,0,0.06)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-label-sm font-label-sm">Discover</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-sm font-label-sm">Diary</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-label-sm font-label-sm">Planner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple interaction for day selector
+        const dayButtons = document.querySelectorAll('button.flex.flex-col.items-center.justify-center.w-12');
+        dayButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dayButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary', 'active-day');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.remove('text-on-surface-variant');
+                btn.classList.add('bg-primary', 'text-on-primary', 'active-day');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Nourish</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#3e0500",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#dee4db",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "error-container": "#ffdad6",
+                        "outline": "#737970",
+                        "background": "#f5fbf2",
+                        "surface": "#f5fbf2",
+                        "on-tertiary-container": "#fdffdd",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-background": "#171d18",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fd876f",
+                        "tertiary": "#5d5c57",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-primary-fixed": "#012108",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f5fbf2",
+                        "surface-container-low": "#f0f5ec",
+                        "on-secondary-container": "#732010",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#424841",
+                        "secondary-fixed-dim": "#ffb4a5",
+                        "on-secondary": "#ffffff",
+                        "primary": "#436444",
+                        "primary-fixed": "#c6edc4",
+                        "secondary": "#9f402d",
+                        "surface-container": "#eaf0e6",
+                        "tertiary-container": "#76756f",
+                        "on-primary-container": "#f7fff2",
+                        "surface-tint": "#456646",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#5b7d5b",
+                        "surface-dim": "#d6dcd3",
+                        "inverse-on-surface": "#edf2e9",
+                        "primary-fixed-dim": "#abd0a9",
+                        "outline-variant": "#c2c8be",
+                        "inverse-surface": "#2c322c",
+                        "surface-container-high": "#e4eae1",
+                        "surface-container-highest": "#dee4db",
+                        "inverse-primary": "#abd0a9",
+                        "on-surface": "#171d18",
+                        "on-primary-fixed-variant": "#2e4e30",
+                        "on-secondary-fixed-variant": "#802918",
+                        "secondary-fixed": "#ffdad3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "container-max": "640px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "button-text": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button-text": ["16px", {"lineHeight": "20px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .hero-mask {
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            background-color: #f5fbf2; /* Matching the "background" token */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- Top Navigation (Shell suppressed for onboarding, but Header included as per JSON identity) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-gutter w-full max-w-container-max mx-auto h-16 bg-transparent">
+<div class="flex items-center gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">Nourish</span>
+</div>
+</header>
+<main class="relative min-h-screen flex flex-col items-center overflow-hidden">
+<!-- High-Impact Hero Image Container -->
+<div class="relative w-full h-[486px] md:h-[530px] overflow-hidden hero-mask">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 hover:scale-105" data-alt="A cinematic, high-impact photograph of a sunlit, rustic modern kitchen. Bright afternoon light streams through a window, illuminating a marble countertop scattered with vibrant fresh ingredients: crisp kale, ripe heirloom tomatoes, artisanal sourdough bread, and a bowl of fresh lemons. The color palette is dominated by warm sage greens, creamy whites, and earthy terracotta tones, creating a welcoming and nurtured atmosphere. The photography style is shallow depth of field, soft-focus background, clean and minimalist." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAGsq7x-7g3e5-tAAOvbsq45G3L9NoyxVbnccQzKIu_rZeiH0RTJWNDgrXgZx47tWLQRuz0zP0okmltqYgLdk6m4bfCAuRnO7r9DtsOf1ue2yAYLRjvHgqPIK1J4-gvg17_DSwFSnSkhg2W34bMh8pRq9SMy1Puk9jxF4qGTfHO243ChcPVnE1H6HaeL5Bbhc_CqOvxVJ8RlxNom0vQMK3E98gp0RKYU1-fQPnBwPSa3Cpud0Guo7e7F9WPs7K7Hx65nvRTqsMgYv25')"></div>
+<!-- Ambient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+</div>
+<!-- Content Canvas -->
+<div class="flex-1 w-full max-w-container-max px-gutter -mt-16 relative z-10 flex flex-col items-center text-center">
+<!-- Progress Indicator (Nurtured Growth Style) -->
+<div class="flex gap-2 mb-xl">
+<div class="w-8 h-1.5 rounded-full bg-primary"></div>
+<div class="w-8 h-1.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-8 h-1.5 rounded-full bg-surface-container-highest"></div>
+<div class="w-8 h-1.5 rounded-full bg-surface-container-highest"></div>
+</div>
+<!-- Welcome Text Cluster -->
+<div class="fade-in-up" style="animation-delay: 0.2s;">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-md max-w-md mx-auto">
+                    Welcome to your supportive kitchen friend.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm mx-auto mb-lg">
+                    Let's personalize your journey to better health, one meal at a time.
+                </p>
+</div>
+<!-- Interaction Area -->
+<div class="w-full mt-auto mb-xl fade-in-up" style="animation-delay: 0.4s;">
+<button class="w-full bg-primary text-on-primary py-4 px-lg rounded-xl font-button-text text-button-text shadow-[0_8px_16px_rgba(67,100,68,0.15)] hover:opacity-90 active:scale-95 transition-all duration-200" onclick="this.classList.add('scale-95')">
+                    Get Started
+                </button>
+</div>
+</div>
+<!-- Footer (Using JSON Structure) -->
+<footer class="w-full mt-auto flex flex-col items-center gap-sm py-lg w-full max-w-container-max mx-auto">
+<div class="flex gap-md mb-xs">
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="#">Skip for now</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60 px-gutter text-center">
+                © 2024 Nourish. Supportive Kitchen Friend.
+            </p>
+</footer>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.querySelector('[data-alt]');
+            // Subtle parallax or zoom on load
+            setTimeout(() => {
+                hero.style.transform = 'scale(1.05)';
+                hero.style.transition = 'transform 20s linear';
+            }, 100);
+        });
+
+        // Handle Active states from JSON logic
+        const buttons = document.querySelectorAll('button, a');
+        buttons.forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-98', 'duration-200'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-98'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-98'));
+        });
+    </script>
+</body></html>

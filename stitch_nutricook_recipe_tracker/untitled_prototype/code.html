@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nourish - Modern Organic Cooking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Playfair+Display:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#c6edc4",
+                      "surface-container-high": "#eae8e7",
+                      "surface": "#fbf9f8",
+                      "on-tertiary-fixed": "#231b00",
+                      "secondary": "#94492c",
+                      "tertiary-fixed-dim": "#e4c451",
+                      "on-background": "#1b1c1c",
+                      "on-secondary-container": "#773318",
+                      "surface-container": "#f0eded",
+                      "tertiary": "#715c00",
+                      "inverse-primary": "#abd0a9",
+                      "surface-container-highest": "#e4e2e1",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed-dim": "#abd0a9",
+                      "background": "#fbf9f8",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f6f3f2",
+                      "primary": "#436444",
+                      "secondary-fixed-dim": "#ffb59b",
+                      "tertiary-fixed": "#ffe17a",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#f7fff2",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#2e4e30",
+                      "on-surface-variant": "#424841",
+                      "outline": "#737970",
+                      "on-tertiary-fixed-variant": "#554500",
+                      "inverse-on-surface": "#f3f0f0",
+                      "surface-bright": "#fbf9f8",
+                      "on-surface": "#1b1c1c",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e4e2e1",
+                      "inverse-surface": "#303030",
+                      "tertiary-container": "#c7a938",
+                      "on-tertiary-container": "#4d3e00",
+                      "secondary-fixed": "#ffdbcf",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#380d00",
+                      "surface-tint": "#456646",
+                      "outline-variant": "#c2c8be",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#5b7d5b",
+                      "secondary-container": "#fe9d7a",
+                      "surface-dim": "#dcd9d9",
+                      "on-secondary-fixed-variant": "#763217",
+                      "on-primary-fixed": "#012108"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "lg": "32px",
+                      "gutter": "16px",
+                      "base": "4px",
+                      "sm": "16px",
+                      "xs": "8px",
+                      "container-margin": "20px",
+                      "xl": "48px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Playfair Display"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Playfair Display"],
+                      "display-lg": ["Playfair Display"],
+                      "headline-lg": ["Playfair Display"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="sticky top-0 w-full z-40 bg-surface flex justify-between items-center h-16 px-container-margin">
+<div class="flex items-center gap-xs">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional, high-quality headshot of a friendly young woman with a warm smile, set against a soft, out-of-focus garden background. The lighting is natural and bright, reflecting a modern organic lifestyle. The image is crisp and vibrant, following a clean, light-mode aesthetic consistent with a premium health and wellness application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1GQJ7aA88XbiAwei0uGjqVdfHjvHinzyOaRHb8rzgtzQxNfUVV_5SIoyhFCJDaxVk4OwhHZ1jdxwK4xIwXUEjwP5KEVrys6q2lpvb1zhFmQyFAqFPbmMuryh8cS6TTaC1OaRaIFqnwaQkaIBsHtiNj5mIWbF6cSBupP8yZr-5LzCaMhU-mnRFB2eXciFit6h1V9WaQH-A8DD6lYtcvADQV6lXXl5W6cy529VMyZIW3z593oMIPaTTWwtlQ_CRwX3pj8WJNNrc_MVJ"/>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Nourish</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:opacity-80 transition-opacity active:scale-98">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="search">search</span>
+</button>
+</header>
+<main class="px-container-margin space-y-lg pt-xs">
+<!-- Calorie Progress Section -->
+<section class="bg-surface-container-low rounded-xl p-sm shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex flex-col items-center">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<!-- SVG Progress Ring -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502.6" stroke-dashoffset="138" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-md text-headline-md text-on-surface">1,450</span>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">/ 2,000 kcal</span>
+</div>
+</div>
+<!-- Macro Breakdowns -->
+<div class="grid grid-cols-3 gap-md w-full mt-sm">
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-primary">120g</span>
+<span class="font-label-sm text-label-sm text-outline">Protein</span>
+<div class="h-1 w-full bg-surface-container-highest rounded-full mt-xs overflow-hidden">
+<div class="h-full bg-primary w-[65%]"></div>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-secondary">180g</span>
+<span class="font-label-sm text-label-sm text-outline">Carbs</span>
+<div class="h-1 w-full bg-surface-container-highest rounded-full mt-xs overflow-hidden">
+<div class="h-full bg-secondary w-[80%]"></div>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md text-tertiary-container">45g</span>
+<span class="font-label-sm text-label-sm text-outline">Fat</span>
+<div class="h-1 w-full bg-surface-container-highest rounded-full mt-xs overflow-hidden">
+<div class="h-full bg-tertiary-container w-[40%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Recipes Section -->
+<section>
+<div class="flex justify-between items-end mb-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Featured Recipes</h2>
+<button class="font-label-md text-label-md text-primary hover:underline">View all</button>
+</div>
+<div class="flex overflow-x-auto gap-gutter hide-scrollbar -mx-container-margin px-container-margin pb-xs">
+<!-- Recipe Card 1 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] group cursor-pointer transition-transform duration-200 active:scale-95">
+<div class="relative h-40">
+<img alt="Poke Bowl" class="w-full h-full object-cover" data-alt="A vibrant and appetizing Salmon Poke Bowl served in a rustic ceramic dish. The bowl is filled with fresh cubes of raw salmon, edamame beans, sliced avocado, and radishes, drizzled with a light soy-ginger glaze. The lighting is bright and airy, emphasizing the freshness of the ingredients. The background is a clean, minimalist wooden tabletop, creating a warm yet modern organic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-3qIFqkKAxJFxsiv7pVVWJuWa3NYRxzr3SvtQ7uBWw37H8njDwx5I3uhw5zJxEYVjRDBSGyeA6SdatmTT1ZzoWQac7cbeq-DamPRCqv7j_2uUUwxlDbXCuYMiI_m3KPsnu3aLQnDOTs_jsOIjkfFQGGHJbFUS0Nff_XyeH2uxG9Hiq8uHP5s1BkpD6xmEKckztlfB7ZkQK5v73F4zUTVR9D3HjCFnbCeJXx5TkteEVzKYEoe0-pxHGcz7b3keFcvi0qM3irE_824v"/>
+<div class="absolute top-xs right-xs bg-[#F4E04D] px-2 py-0.5 rounded-full shadow-sm">
+<span class="text-[10px] font-bold text-black uppercase">420 kcal</span>
+</div>
+</div>
+<div class="p-sm">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Spring Salmon Bowl</h3>
+<div class="flex items-center gap-xs mt-base text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-label-sm font-label-sm">20 min</span>
+</div>
+</div>
+</div>
+<!-- Recipe Card 2 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] group cursor-pointer transition-transform duration-200 active:scale-95">
+<div class="relative h-40">
+<img alt="Quinoa Salad" class="w-full h-full object-cover" data-alt="A gourmet Quinoa and Roasted Vegetable Salad presented in a shallow white bowl. The salad features colorful bell peppers, tender spinach, and crumbled feta cheese, all tossed in a zesty lemon-tahini dressing. The scene is shot from a top-down angle on a light gray marble surface with soft, diffused morning light. The overall mood is healthy, revitalizing, and sophisticated, matching a modern organic lifestyle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeNhXZKoo8qhbAFMgmznyPOwpa61oGouUz9Nyq_I6KolB7vP8ZQVWtd2C67BYhq5xdmqyLuUMrIXL9uyBesGhJRqDsiAcnD3wL9XQhJuEt0iiYy3Wmdd_MMoXI0pOqo0zjMJQZV7dNO6KXNSrVT2xe1q0nqfxcBf9a1BRoMt4MsZVDeFLyXVEIn3CaD0WkFCQBcl59XPJ0IL5jK3_MRG8stV2O5TE97odBRBmONBaeIkK5PDgqYapEyCA8Ds8s_b8KF7ZSFmNw2WwF"/>
+<div class="absolute top-xs right-xs bg-[#F4E04D] px-2 py-0.5 rounded-full shadow-sm">
+<span class="text-[10px] font-bold text-black uppercase">350 kcal</span>
+</div>
+</div>
+<div class="p-sm">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Zesty Quinoa Mix</h3>
+<div class="flex items-center gap-xs mt-base text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-label-sm font-label-sm">15 min</span>
+</div>
+</div>
+</div>
+<!-- Recipe Card 3 -->
+<div class="flex-shrink-0 w-64 bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.06)] group cursor-pointer transition-transform duration-200 active:scale-95">
+<div class="relative h-40">
+<img alt="Pancakes" class="w-full h-full object-cover" data-alt="A stack of fluffy whole-grain pancakes topped with a handful of fresh blueberries and a light drizzle of honey. A single sprig of mint adds a touch of green. The lighting is warm and golden, reminiscent of a cozy Sunday morning. The background features a soft linen tablecloth and a ceramic mug, evoking a sensory, home-cooked, organic feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTJGr6FAoFd6XXMtfEhwwXgn3Il8sXiqHzbZOcBjl5vyvBX9Lt4P6CtNRnDPYHmDUnaizGOtiJWSvxwYli3C-mD7I93ZMiwdHWP2rwNpoXJyl_6wRdTQesD2z1-eaB8Q8Lh3tt2xaliHy3PAWE633gK0E543C-iTqBSQ7ewzABbXlaPiM15Pkhu8WbBRfvq6vBaWgE7xWmyfsE4K6w1ksjqnsVmmWrIFoBMJ1KK4OSch5lXWGF6M6A3eGXxiv0LKavxWm8AUuXr-tf"/>
+<div class="absolute top-xs right-xs bg-[#F4E04D] px-2 py-0.5 rounded-full shadow-sm">
+<span class="text-[10px] font-bold text-black uppercase">290 kcal</span>
+</div>
+</div>
+<div class="p-sm">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Berry Grain Pancakes</h3>
+<div class="flex items-center gap-xs mt-base text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-label-sm font-label-sm">25 min</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Categories Grid -->
+<section class="pb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm">Categories</h2>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Breakfast -->
+<div class="relative h-28 rounded-xl overflow-hidden group cursor-pointer active:scale-98 transition-transform">
+<img alt="Breakfast" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A macro shot of healthy breakfast items: a bowl of Greek yogurt with granola and sliced strawberries. The lighting is bright and clean, emphasizing a fresh start to the day. The colors are vibrant and appetizing, following the modern organic theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsNG7I0xNmPNvH3Kb8FRZRa4_DJ_UZPKN8J3yByZWHrLGdvFwtmh1OhJI5UOlyZ4AJGt0MFlxolhRnXVdZF_RLwnDS3B6P5Bwd0G40U01--8w8uJCpyISbqa5ZhpxTTxUzVa0f1ddxq6pgwxDWpj2u_job4qC3z0ZRi9ImwIOcMjtHP0dWgjSk0UZQzi0Hz6KuR74brkg11bF2qZdRrGJXuLer9KxHuMXqXL7bMjonfXe-ebEvyBoPHK0WhtyFSfoSLEC9X8HJHdRb"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-sm">
+<span class="text-white font-label-md text-label-md">Breakfast</span>
+</div>
+</div>
+<!-- Lunch -->
+<div class="relative h-28 rounded-xl overflow-hidden group cursor-pointer active:scale-98 transition-transform">
+<img alt="Lunch" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A fresh, crisp green salad with grilled chicken and a variety of colorful vegetables including cherry tomatoes and cucumbers. The lighting is natural and creates a sense of freshness and vitality. A wooden bowl provides a tactile, organic touch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvilUok-SDKLDGy0fgdyIwIkX80L4sfKpFlvHmmclHUIKYEIviZOtJyRa84PHDKhizMafWOY7Y00MiyMDCWNk3fbZUIOGLhCLzt-O63nfun6i0_LTgjjLMdYPxs5K78fy8Ox5KWfRDc84TGZp-HYmhe84OVt-oZNLhDxr2P_hzOcFGlvXQvEDsIcQjznid3em8kEpWCqnmDt0xoHWpRPRfip0S49Os0KE0VbyMPgM6GGm5RSjz1KFlAYcPb0LqZ5TP0CZ9GvCISpYW"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-sm">
+<span class="text-white font-label-md text-label-md">Lunch</span>
+</div>
+</div>
+<!-- Dinner -->
+<div class="relative h-28 rounded-xl overflow-hidden group cursor-pointer active:scale-98 transition-transform">
+<img alt="Dinner" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A beautifully plated dinner of roasted salmon, asparagus, and small potatoes. The mood is calm and cozy, with soft ambient lighting that highlights the textures of the cooked food. The background is dark and sophisticated, suggesting an evening meal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfYFTzcDHSsyBAKgp70sj5srgb8uCYr8hDJdXmN1tPfiG3MnDgx3Whs0vJ_A2188fVyWpHdkA0a1KtVyr0-n4X8vFI_fYTS21l9SogXJ-ykKsF_o8LR9OK6bGkChalLRZQLRl8Rcf-RhVsEqJXB5V29knK1rg5HHvmV8OhKRxh3uNM1wffpRS4-1SGMh2dcG9aYUvgjtZLoUC7PVO89574fvqyzzwHMSqny_Q_RT3i7A0TFDolWCIu8WdL0CmaNin0PUmc9An37_E0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-sm">
+<span class="text-white font-label-md text-label-md">Dinner</span>
+</div>
+</div>
+<!-- Snacks -->
+<div class="relative h-28 rounded-xl overflow-hidden group cursor-pointer active:scale-98 transition-transform">
+<img alt="Snacks" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A bowl of mixed raw nuts and dried fruits like cranberries and apricots. The lighting is bright and highlights the various textures of the nuts. The overall aesthetic is wholesome and health-conscious, perfect for a modern cooking app's snack section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU-uhkDJOzxlmwi4HH6KeYSfxuaEZ4se9wai3hlb0wI9OOOD4cMK4NxiF23mVngLFsCCD38MSd8D-sHPuYy7F9ZQTrhEDMECkFXXyTgM7uXpZaDa0DYzmlViRShHcVCcQl-wIo3MrKlNGdLFuMgVYO6aTOkUkpRdXBeAPcswhMbQTk1U3umH38_jC0ZX4rIl6DEQciXXq0TQejwFctHNd_GCVvgwYXwRlK7QNsVUDs_29UyqZC2cPQ-Jz62MybFlObdjV5Pus6aXF1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-sm">
+<span class="text-white font-label-md text-label-md">Snacks</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-container-margin bg-surface bg-surface-container-low dark:bg-surface-container shadow-[0_-4px_20px_rgba(0,0,0,0.06)] z-50">
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-full px-4 py-1 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="text-label-sm font-label-sm">Discover</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-label-sm font-label-sm">Diary</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-sm font-label-sm">Planner</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline p-2 hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.flex-shrink-0').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add touch feedback for categories
+        document.querySelectorAll('.grid > div').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.opacity = '0.7';
+            });
+            item.addEventListener('touchend', () => {
+                item.style.opacity = '1';
+            });
+        });
+    </script>
+</body></html>
