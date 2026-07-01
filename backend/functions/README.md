@@ -45,7 +45,8 @@ This machine currently has **no Node.js / Firebase CLI**. Install first:
 1. **Node.js 20 LTS** — https://nodejs.org (or `winget install OpenJS.NodeJS.LTS`)
 2. **Firebase CLI** — `npm install -g firebase-tools`
 3. A **Firebase project** (Blaze plan required for Cloud Functions + outbound
-   calls to Spoonacular). Put its ID in `/.firebaserc` (replace `nourish-app-REPLACE_ME`).
+   calls to Spoonacular). `/.firebaserc` already points at `nourish-22776` —
+   only change this if you're pointing at a different project.
 4. A **Spoonacular API key** — https://spoonacular.com/food-api
 
 ## Setup
@@ -68,8 +69,12 @@ npm run lint
 
 ```bash
 # from repo root, after `firebase login`
-firebase emulators:start --only functions,firestore,auth
+firebase emulators:start --only functions,firestore,auth,storage
+# or: npm run serve   (same command, includes storage)
 ```
+
+From the repo root, `npm run dev` starts all four emulators *and* Expo
+together — see the root [README](../../README.md).
 
 The API is then at:
 `http://127.0.0.1:5001/<project-id>/us-central1/api/api/v1/...`
@@ -80,8 +85,14 @@ The API is then at:
 # one-time: store the production secret
 firebase functions:secrets:set SPOONACULAR_API_KEY
 
-firebase deploy --only functions,firestore:rules
+firebase deploy --only functions,firestore:rules,storage:rules
 ```
+
+`storage:rules` is easy to forget (same shape of mistake as the emulator flags
+above) — without it, the Storage security rules governing client access to
+recipe images never reach production, even though the Admin-SDK upload
+script bypasses them and will "work" regardless. See the root
+[README](../../README.md#deploying) for the full deployment walkthrough.
 
 ## Auth model
 

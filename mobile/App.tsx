@@ -1,6 +1,10 @@
 /**
  * App root. Loads brand fonts, then wires the provider stack:
- *   SafeArea -> Auth -> Profile -> RootNavigator
+ *   SafeArea -> ErrorBoundary -> Auth -> Profile -> RootNavigator
+ *
+ * `mountKey` lets a font-load failure retry cleanly: bumping it remounts
+ * AppInner, which re-runs useFonts from scratch (hooks can't be "retried"
+ * in place).
  */
 import {
   PlayfairDisplay_600SemiBold,
@@ -18,11 +22,18 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./src/auth/AuthContext";
+import { ErrorBoundary } from "./src/components/ErrorBoundary";
+import { ErrorScreen } from "./src/components/ErrorScreen";
 import { ProfileProvider } from "./src/profile/ProfileContext";
 import { RootNavigator } from "./src/navigation/RootNavigator";
 import { colors } from "./src/theme/tokens";
 
 export default function App() {
+  const [mountKey, setMountKey] = useState(0);
+  return <AppInner key={mountKey} onRetryFonts={() => setMountKey((k) => k + 1)} />;
+}
+
+function AppInner({ onRetryFonts }: { onRetryFonts: () => void }) {
   const [fontWaitElapsed, setFontWaitElapsed] = useState(false);
   const [fontsLoaded, fontError] = useFonts({
     PlayfairDisplay_600SemiBold,
@@ -38,24 +49,40 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!fontsLoaded && !fontError && !fontWaitElapsed) {
-    return (
+  let content: React.ReactNode;
+  if (fontError) {
+    // A real failure, not just slow loading — surface it instead of silently
+    // rendering the app with broken/fallback fonts forever.
+    content = (
+      <ErrorScreen
+        title="Couldn't load fonts"
+        message="Nourish couldn't load its fonts. Try again, or restart the app if this keeps happening."
+        onRetry={onRetryFonts}
+      />
+    );
+  } else if (!fontsLoaded && !fontWaitElapsed) {
+    content = (
       <View style={styles.splash}>
         <ActivityIndicator color={colors.primary} size="large" />
       </View>
     );
+  } else {
+    // Either fonts loaded, or we've waited long enough and are proceeding
+    // with the system-font fallback (AppText degrades gracefully) rather
+    // than blocking the whole app on a slow font load.
+    content = (
+      <ErrorBoundary>
+        <AuthProvider>
+          <ProfileProvider>
+            <StatusBar style="dark" />
+            <RootNavigator />
+          </ProfileProvider>
+        </AuthProvider>
+      </ErrorBoundary>
+    );
   }
 
-  return (
-    <SafeAreaProvider>
-      <AuthProvider>
-        <ProfileProvider>
-          <StatusBar style="dark" />
-          <RootNavigator />
-        </ProfileProvider>
-      </AuthProvider>
-    </SafeAreaProvider>
-  );
+  return <SafeAreaProvider>{content}</SafeAreaProvider>;
 }
 
 const styles = StyleSheet.create({

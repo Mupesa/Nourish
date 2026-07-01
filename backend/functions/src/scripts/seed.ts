@@ -3,7 +3,9 @@
  *
  * Against the emulator:
  *   npm run build
- *   FIRESTORE_EMULATOR_HOST=127.0.0.1:8088 GCLOUD_PROJECT=nourish-22776 node lib/scripts/seed.js
+ *   FIRESTORE_EMULATOR_HOST=127.0.0.1:8090 GCLOUD_PROJECT=nourish-22776 node lib/scripts/seed.js
+ *
+ * Or from the repo root: npm run seed (uses the correct port automatically).
  *
  * Against production (requires GOOGLE_APPLICATION_CREDENTIALS service account):
  *   GCLOUD_PROJECT=nourish-22776 node lib/scripts/seed.js

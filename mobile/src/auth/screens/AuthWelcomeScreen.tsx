@@ -18,13 +18,16 @@ type Props = NativeStackScreenProps<AuthStackParamList, "AuthWelcome">;
 export function AuthWelcomeScreen({ navigation }: Props) {
   const { continueAsGuest } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGetStarted = async () => {
     setLoading(true);
+    setError(null);
     try {
       await continueAsGuest();
       // onAuthStateChanged clears needsAuthDecision → RootNavigator switches to Onboarding
     } catch {
+      setError("Couldn't get started. Check your connection and try again.");
       setLoading(false);
     }
   };
@@ -84,6 +87,11 @@ export function AuthWelcomeScreen({ navigation }: Props) {
             onPress={() => navigation.navigate("SignIn")}
             disabled={loading}
           />
+          {error && (
+            <AppText variant="body" color={colors.error} center>
+              {error}
+            </AppText>
+          )}
         </View>
 
         {loading && (

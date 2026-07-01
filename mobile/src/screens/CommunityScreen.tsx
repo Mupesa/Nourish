@@ -23,6 +23,7 @@ import { blockUser, listFriends } from "../api/friends";
 import { getMyProfile } from "../api/social";
 import { AppText } from "../components/AppText";
 import { Avatar } from "../components/Avatar";
+import { InlineError } from "../components/InlineError";
 import { PostCard } from "../components/PostCard";
 import { useAuth } from "../auth/AuthContext";
 import { colors, radius, spacing } from "../theme/tokens";
@@ -41,8 +42,10 @@ export function CommunityScreen({ navigation }: Props) {
   const [me, setMe] = useState<PublicProfile | null>(null);
   const [friends, setFriends] = useState<Friend[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    setError(null);
     try {
       const [feed, profile, fr] = await Promise.all([
         listFeed(),
@@ -54,6 +57,7 @@ export function CommunityScreen({ navigation }: Props) {
       setFriends(fr);
     } catch (e) {
       console.warn("[community] load failed", e);
+      setError("Couldn't load your feed. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -151,6 +155,14 @@ export function CommunityScreen({ navigation }: Props) {
     return (
       <SafeAreaView style={styles.center}>
         <ActivityIndicator color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <InlineError message={error} onRetry={() => void load()} />
       </SafeAreaView>
     );
   }

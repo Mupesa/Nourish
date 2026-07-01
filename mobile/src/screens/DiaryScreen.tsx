@@ -19,6 +19,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { deleteMeal, fetchDay, setWater } from "../api/diary";
 import { AppText } from "../components/AppText";
+import { InlineError } from "../components/InlineError";
 import { colors, radius, spacing } from "../theme/tokens";
 import { MainStackParamList, MainTabParamList } from "../navigation/types";
 import { DiaryDaySummary, LoggedMeal } from "../types/domain";
@@ -31,12 +32,15 @@ export function DiaryScreen({ navigation }: Props) {
   const [summary, setSummary] = useState<DiaryDaySummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    setError(null);
     try {
       setSummary(await fetchDay(date));
     } catch (e) {
       console.warn("[diary] load failed", e);
+      setError("Couldn't load your diary. Check your connection and try again.");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -54,6 +58,7 @@ export function DiaryScreen({ navigation }: Props) {
       setSummary(await setWater(date, { addMl: deltaMl }));
     } catch (e) {
       console.warn("[diary] water update failed", e);
+      Alert.alert("Error", "Couldn't update water. Try again.");
     }
   };
 
@@ -68,6 +73,7 @@ export function DiaryScreen({ navigation }: Props) {
             setSummary(await deleteMeal(date, meal.id));
           } catch (e) {
             console.warn("[diary] delete failed", e);
+            Alert.alert("Error", "Couldn't remove meal. Try again.");
           }
         },
       },
@@ -83,6 +89,14 @@ export function DiaryScreen({ navigation }: Props) {
     return (
       <SafeAreaView style={styles.center}>
         <ActivityIndicator color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <InlineError message={error} onRetry={() => void load()} />
       </SafeAreaView>
     );
   }

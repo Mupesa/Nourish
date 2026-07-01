@@ -16,6 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getRecommendedRecipes, searchExternalRecipes } from "../api/recipes";
 import { AppText } from "../components/AppText";
+import { InlineError } from "../components/InlineError";
 import { RecipeCard } from "../components/RecipeCard";
 import { TextField } from "../components/TextField";
 import { useProfile } from "../profile/ProfileContext";
@@ -45,6 +46,7 @@ export function DiscoverScreen({ navigation, route }: Props) {
   );
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -53,6 +55,7 @@ export function DiscoverScreen({ navigation, route }: Props) {
 
   const loadLibrary = useCallback(async (nextPage = 1, append = false) => {
     setLoading(true);
+    setError(null);
     try {
       const result = await getRecommendedRecipes({
         tag: tag ?? undefined,
@@ -74,6 +77,8 @@ export function DiscoverScreen({ navigation, route }: Props) {
       setTotalPages(result.totalPages);
     } catch (e) {
       console.warn("[discover] library load failed", e);
+      if (!append) setCards([]);
+      setError("Couldn't load recipes. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -85,6 +90,7 @@ export function DiscoverScreen({ navigation, route }: Props) {
       return;
     }
     setLoading(true);
+    setError(null);
     try {
       const results = await searchExternalRecipes(query.trim());
       setCards(
@@ -98,10 +104,17 @@ export function DiscoverScreen({ navigation, route }: Props) {
       );
     } catch (e) {
       console.warn("[discover] search failed", e);
+      setCards([]);
+      setError("Search failed. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
   }, [query, loadLibrary]);
+
+  const retry = useCallback(
+    () => (query.trim().length >= 2 ? runSearch() : loadLibrary(1)),
+    [query, runSearch, loadLibrary],
+  );
 
   useEffect(() => {
     if (query.trim().length === 0) void loadLibrary(1);
@@ -183,6 +196,8 @@ export function DiscoverScreen({ navigation, route }: Props) {
 
         {loading ? (
           <ActivityIndicator color={colors.primary} style={{ marginTop: 40 }} />
+        ) : error ? (
+          <InlineError message={error} onRetry={() => void retry()} />
         ) : cards.length === 0 ? (
           <AppText variant="body" color={colors.onSurfaceVariant}>
             No recipes found. Try another search.

@@ -21,6 +21,7 @@ import {
   removePlanItem,
 } from "../api/planner";
 import { AppText } from "../components/AppText";
+import { InlineError } from "../components/InlineError";
 import { PaywallCard } from "../components/PaywallCard";
 import { useProfile } from "../profile/ProfileContext";
 import { colors, radius, spacing } from "../theme/tokens";
@@ -38,16 +39,19 @@ export function PlannerScreen(_props: Props) {
   const [days, setDays] = useState<DayPlan[]>([]);
   const [selected, setSelected] = useState(todayLocal());
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!isPremium) {
       setLoading(false);
       return;
     }
+    setError(null);
     try {
       setDays(await getWeek(weekStart));
     } catch (e) {
       console.warn("[planner] load failed", e);
+      setError("Couldn't load your planner. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -83,6 +87,7 @@ export function PlannerScreen(_props: Props) {
       Alert.alert("Logged", `${item.title} added to your diary.`);
     } catch (e) {
       console.warn("[planner] cook failed", e);
+      Alert.alert("Error", "Couldn't mark this cooked. Try again.");
     }
   };
 
@@ -98,6 +103,7 @@ export function PlannerScreen(_props: Props) {
             setDays((ds) => ds.map((d) => (d.date === selected ? plan : d)));
           } catch (e) {
             console.warn("[planner] remove failed", e);
+            Alert.alert("Error", "Couldn't remove this item. Try again.");
           }
         },
       },
@@ -108,6 +114,14 @@ export function PlannerScreen(_props: Props) {
     return (
       <SafeAreaView style={styles.center}>
         <ActivityIndicator color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <InlineError message={error} onRetry={() => void load()} />
       </SafeAreaView>
     );
   }

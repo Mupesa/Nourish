@@ -1,0 +1,15 @@
+{
+  "name": "nourish",
+  "private": true,
+  "description": "Root orchestration for the Nourish monorepo (mobile + backend). See README.md.",
+  "scripts": {
+    "install:all": "npm install --prefix backend/functions && npm install --prefix mobile",
+    "dev": "concurrently -n backend,mobile -c blue,green \"npm --prefix backend/functions run serve\" \"npm --prefix mobile start\"",
+    "seed": "npm --prefix backend/functions run build && cross-env FIRESTORE_EMULATOR_HOST=127.0.0.1:8090 GCLOUD_PROJECT=nourish-22776 node backend/functions/lib/scripts/seed.js",
+    "images:upload": "npm --prefix backend/functions run build && cross-env STORAGE_EMULATOR_HOST=127.0.0.1:9199 GCLOUD_PROJECT=nourish-22776 node backend/functions/lib/scripts/upload-recipe-images.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3"
+  }
+}

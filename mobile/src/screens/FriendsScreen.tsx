@@ -30,6 +30,7 @@ import {
 import { claimHandle, getMyProfile } from "../api/social";
 import { AppText } from "../components/AppText";
 import { Button } from "../components/Button";
+import { InlineError } from "../components/InlineError";
 import { TextField } from "../components/TextField";
 import { ApiError } from "../api/client";
 import { colors, radius, spacing } from "../theme/tokens";
@@ -75,6 +76,7 @@ function Avatar({
 export function FriendsScreen({ navigation }: Props) {
   const [me, setMe] = useState<PublicProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [handleInput, setHandleInput] = useState("");
   const [handleError, setHandleError] = useState<string | undefined>();
@@ -83,6 +85,7 @@ export function FriendsScreen({ navigation }: Props) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [searching, setSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const [incoming, setIncoming] = useState<FriendRequestCard[]>([]);
   const [outgoing, setOutgoing] = useState<FriendRequestCard[]>([]);
@@ -100,31 +103,48 @@ export function FriendsScreen({ navigation }: Props) {
     setFriends(fr);
   }, []);
 
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await loadLists();
+    } catch (e) {
+      console.warn("[friends] load failed", e);
+      setError("Couldn't load friends. Check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  }, [loadLists]);
+
   useFocusEffect(
     useCallback(() => {
-      setLoading(true);
-      loadLists()
-        .catch((e) => console.warn("[friends] load failed", e))
-        .finally(() => setLoading(false));
-    }, [loadLists]),
+      void load();
+    }, [load]),
   );
+
+  const doSearch = useCallback((q: string) => {
+    setSearching(true);
+    setSearchError(null);
+    searchUsers(q)
+      .then(setResults)
+      .catch((e) => {
+        console.warn("[friends] search failed", e);
+        setSearchError("Search failed. Check your connection and try again.");
+      })
+      .finally(() => setSearching(false));
+  }, []);
 
   // Debounced handle search.
   useEffect(() => {
     const q = query.trim().toLowerCase();
     if (q.length < 1) {
       setResults([]);
+      setSearchError(null);
       return;
     }
-    setSearching(true);
-    const t = setTimeout(() => {
-      searchUsers(q)
-        .then(setResults)
-        .catch((e) => console.warn("[friends] search failed", e))
-        .finally(() => setSearching(false));
-    }, 350);
+    const t = setTimeout(() => doSearch(q), 350);
     return () => clearTimeout(t);
-  }, [query]);
+  }, [query, doSearch]);
 
   const refresh = useCallback(async () => {
     await loadLists();
@@ -191,6 +211,14 @@ export function FriendsScreen({ navigation }: Props) {
     );
   }
 
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <InlineError message={error} onRetry={() => void load()} />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       {/* Header */}
@@ -245,7 +273,14 @@ export function FriendsScreen({ navigation }: Props) {
             onChangeText={setQuery}
           />
           {searching && <ActivityIndicator color={colors.primary} />}
+          {!searching && searchError && (
+            <InlineError
+              message={searchError}
+              onRetry={() => doSearch(query.trim().toLowerCase())}
+            />
+          )}
           {!searching &&
+            !searchError &&
             query.trim().length > 0 &&
             results.length === 0 && (
               <AppText variant="body" color={colors.onSurfaceVariant}>

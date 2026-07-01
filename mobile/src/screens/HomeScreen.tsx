@@ -17,6 +17,7 @@ import { fetchDay } from "../api/diary";
 import { getRecommendedRecipes } from "../api/recipes";
 import { AppText } from "../components/AppText";
 import { CalorieRing } from "../components/CalorieRing";
+import { InlineError } from "../components/InlineError";
 import { RecipeCard } from "../components/RecipeCard";
 import { colors, radius, spacing } from "../theme/tokens";
 import { MainStackParamList, MainTabParamList } from "../navigation/types";
@@ -37,11 +38,13 @@ export function HomeScreen({ navigation }: Props) {
   const [goal, setGoal] = useState(0);
   const [recommended, setRecommended] = useState<RecipeRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const parent =
     navigation.getParent<NativeStackNavigationProp<MainStackParamList>>();
 
   const load = useCallback(async () => {
+    setError(null);
     try {
       const [day, recipes] = await Promise.all([
         fetchDay(todayLocal()),
@@ -52,6 +55,7 @@ export function HomeScreen({ navigation }: Props) {
       setRecommended(recipes.recipes);
     } catch (e) {
       console.warn("[home] load failed", e);
+      setError("Couldn't load your dashboard. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -67,6 +71,14 @@ export function HomeScreen({ navigation }: Props) {
     return (
       <SafeAreaView style={styles.center}>
         <ActivityIndicator color={colors.primary} />
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <InlineError message={error} onRetry={() => void load()} />
       </SafeAreaView>
     );
   }

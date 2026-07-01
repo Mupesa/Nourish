@@ -18,6 +18,13 @@ import { UserProfile } from "../types/domain";
 interface ProfileContextValue {
   profile: UserProfile | null;
   loading: boolean;
+  /**
+   * Set when the profile fetch itself failed (network/server error) — as
+   * opposed to a 404, which just means the user hasn't onboarded yet. Callers
+   * should show a retry state rather than routing into onboarding when this
+   * is set.
+   */
+  error: string | null;
   /** Convenience: whether the current user has premium. */
   isPremium: boolean;
   /**
@@ -39,11 +46,13 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const { user, initializing } = useAuth();
   const [profile, setProfileState] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [freeViewsRemaining, setFreeViews] = useState<number | null>(null);
 
   const refresh = useCallback(async () => {
     if (!user) return;
     setLoading(true);
+    setError(null);
     try {
       const { profile: p } = await fetchProfile();
       setProfileState(p);
@@ -53,6 +62,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         setProfileState(null);
       } else {
         console.warn("[profile] load failed", e);
+        setError(
+          e instanceof ApiError ? e.message : "Couldn't load your profile.",
+        );
       }
     } finally {
       setLoading(false);
@@ -66,6 +78,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     } else {
       setProfileState(null);
       setFreeViews(null);
+      setError(null);
       setLoading(false);
     }
   }, [user, initializing, refresh]);
@@ -75,11 +88,15 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
       value={{
         profile,
         loading,
+        error,
         isPremium: profile?.isPremium === true,
         freeViewsRemaining,
         noteFreeViewsRemaining: setFreeViews,
         refresh,
-        setProfile: setProfileState,
+        setProfile: (p) => {
+          setError(null);
+          setProfileState(p);
+        },
       }}
     >
       {children}

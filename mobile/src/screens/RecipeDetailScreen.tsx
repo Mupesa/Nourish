@@ -5,7 +5,7 @@
  */
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -21,6 +21,7 @@ import { addPlanItem } from "../api/planner";
 import { getRecipe } from "../api/recipes";
 import { AppText } from "../components/AppText";
 import { Button } from "../components/Button";
+import { ErrorScreen } from "../components/ErrorScreen";
 import { PaywallCard } from "../components/PaywallCard";
 import { useProfile } from "../profile/ProfileContext";
 import { colors, radius, spacing } from "../theme/tokens";
@@ -37,11 +38,14 @@ export function RecipeDetailScreen({ route, navigation }: Props) {
   const { isPremium, freeViewsRemaining, noteFreeViewsRemaining } = useProfile();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [checked, setChecked] = useState<Record<number, boolean>>({});
 
-  useEffect(() => {
+  const loadRecipe = useCallback(() => {
     let active = true;
+    setLoading(true);
+    setError(null);
     getRecipe(recipeId, source)
       .then((r) => {
         if (!active) return;
@@ -56,14 +60,25 @@ export function RecipeDetailScreen({ route, navigation }: Props) {
           setLocked(true);
           return;
         }
-        const msg = e instanceof ApiError ? e.message : "Failed to load recipe";
-        Alert.alert("Error", msg);
+        setError(e instanceof ApiError ? e.message : "Failed to load recipe");
       })
       .finally(() => active && setLoading(false));
     return () => {
       active = false;
     };
   }, [recipeId, source, noteFreeViewsRemaining]);
+
+  useEffect(() => loadRecipe(), [loadRecipe]);
+
+  if (error) {
+    return (
+      <ErrorScreen
+        message={error}
+        onRetry={loadRecipe}
+        onSecondaryAction={() => navigation.goBack()}
+      />
+    );
+  }
 
   if (locked) {
     return (
