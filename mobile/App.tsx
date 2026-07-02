@@ -24,6 +24,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { AuthProvider } from "./src/auth/AuthContext";
 import { ErrorBoundary } from "./src/components/ErrorBoundary";
 import { ErrorScreen } from "./src/components/ErrorScreen";
+import { env } from "./src/config/env";
 import { ProfileProvider } from "./src/profile/ProfileContext";
 import { RootNavigator } from "./src/navigation/RootNavigator";
 import { colors } from "./src/theme/tokens";
@@ -47,6 +48,23 @@ function AppInner({ onRetryFonts }: { onRetryFonts: () => void }) {
   useEffect(() => {
     const timer = setTimeout(() => setFontWaitElapsed(true), 4000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    console.log("[startup]", {
+      apiBaseUrl: env.apiBaseUrl,
+      useFirebaseEmulator: env.useFirebaseEmulator,
+      projectId: env.firebase.projectId,
+    });
+
+    fetch(`${env.apiBaseUrl}/api/v1/meta/health`)
+      .then(async (response) => {
+        const text = await response.text();
+        console.log("[startup] API health", response.status, text);
+      })
+      .catch((error) => {
+        console.warn("[startup] API health failed", error);
+      });
   }, []);
 
   let content: React.ReactNode;

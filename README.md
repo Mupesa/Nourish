@@ -95,12 +95,14 @@ automate this blindly.
   plan** — Cloud Functions and outbound calls to Spoonacular don't work on
   the free Spark plan. Enable this in the Firebase console first if you
   haven't already.
-- `firebase login` (once per machine).
+- `firebase login` (once per machine), or set `GOOGLE_APPLICATION_CREDENTIALS`
+  to a deploy-capable service account key if CLI login is unavailable.
 - A **service account key** (Firebase console → Project settings → Service
   accounts → Generate new private key) for the seed/upload scripts below —
   they run locally against production, so unlike the deployed Function itself
-  they can't auto-discover credentials. Save it somewhere outside the repo and
-  set `GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json` when running them.
+  they can't auto-discover credentials. Save it somewhere outside the repo, or
+  under the ignored `.secrets/` folder, and set
+  `GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json` when running them.
 
 ### 1. Deploy the backend
 
@@ -109,6 +111,13 @@ automate this blindly.
 firebase functions:secrets:set SPOONACULAR_API_KEY
 
 firebase deploy --only functions,firestore:rules,storage:rules
+```
+
+On PowerShell with a local service account key:
+
+```powershell
+$env:GOOGLE_APPLICATION_CREDENTIALS = ".\.secrets\firebase-deployer.local.json"
+firebase deploy --only functions,firestore:rules,storage:rules --project nourish-22776
 ```
 
 Copy the URL the deploy output prints for the `api` function — you'll need it

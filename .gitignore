@@ -23,6 +23,7 @@ backend/functions/.runtimeconfig.json
 serviceAccountKey.json
 google-services.json
 GoogleService-Info.plist
+.secrets/
 
 # Firebase
 .firebase/
