@@ -1,5 +1,6 @@
 /** Navigation param lists — typed routes for the whole app. */
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { RecipeCuisineRegion, RecipeMealType } from "../types/domain";
 
 export type AuthStackParamList = {
   AuthWelcome: undefined;
@@ -20,7 +21,8 @@ export type MainTabParamList = {
   Home: undefined;
   Discover:
     | {
-        mealType?: "breakfast" | "lunch" | "dinner" | "snack";
+        mealType?: RecipeMealType;
+        cuisineRegion?: RecipeCuisineRegion;
       }
     | undefined;
   Diary: undefined;

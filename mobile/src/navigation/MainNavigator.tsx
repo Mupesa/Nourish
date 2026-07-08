@@ -9,16 +9,20 @@ import { CookModeScreen } from "../screens/CookModeScreen";
 import { CreatePostScreen } from "../screens/CreatePostScreen";
 import { FriendsScreen } from "../screens/FriendsScreen";
 import { HomeScreen } from "../screens/HomeScreen";
+import { EditorialHomeScreen } from "../screens/EditorialHomeScreen";
 import { LogMealScreen } from "../screens/LogMealScreen";
 import { PlannerScreen } from "../screens/PlannerScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { RecipeDetailScreen } from "../screens/RecipeDetailScreen";
 import { UserProfileScreen } from "../screens/UserProfileScreen";
+import { env } from "../config/env";
 import { colors } from "../theme/tokens";
 import { MainStackParamList, MainTabParamList } from "./types";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
+const ActiveHomeScreen =
+  env.homeVariant === "editorial" ? EditorialHomeScreen : HomeScreen;
 
 type TabIcon = keyof typeof MaterialIcons.glyphMap;
 const TAB_ICONS: Record<keyof MainTabParamList, TabIcon> = {
@@ -46,7 +50,7 @@ function Tabs() {
         ),
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={ActiveHomeScreen} />
       <Tab.Screen name="Discover" component={DiscoverScreen} />
       <Tab.Screen name="Diary" component={DiaryScreen} />
       <Tab.Screen name="Planner" component={PlannerScreen} />

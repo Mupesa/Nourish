@@ -23,7 +23,11 @@ import { useProfile } from "../profile/ProfileContext";
 import { DIET_OPTIONS } from "../onboarding/labels";
 import { colors, radius, spacing } from "../theme/tokens";
 import { MainStackParamList, MainTabParamList } from "../navigation/types";
-import { DietaryPreference, RecipeMealType } from "../types/domain";
+import {
+  DietaryPreference,
+  RecipeCuisineRegion,
+  RecipeMealType,
+} from "../types/domain";
 
 type Props = BottomTabScreenProps<MainTabParamList, "Discover">;
 
@@ -37,6 +41,15 @@ interface Card {
   reason?: string;
 }
 
+const REGION_LABELS: Record<RecipeCuisineRegion, string> = {
+  southern_africa: "Southern Africa",
+  west_africa: "West Africa",
+  east_africa: "East Africa",
+  asian: "Asian",
+  indian: "Indian",
+  western: "Western",
+};
+
 export function DiscoverScreen({ navigation, route }: Props) {
   const { isPremium, freeViewsRemaining } = useProfile();
   const [query, setQuery] = useState("");
@@ -44,6 +57,8 @@ export function DiscoverScreen({ navigation, route }: Props) {
   const [mealType, setMealType] = useState<RecipeMealType | null>(
     route.params?.mealType ?? null,
   );
+  const [cuisineRegion, setCuisineRegion] =
+    useState<RecipeCuisineRegion | null>(route.params?.cuisineRegion ?? null);
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +75,7 @@ export function DiscoverScreen({ navigation, route }: Props) {
       const result = await getRecommendedRecipes({
         tag: tag ?? undefined,
         mealType: mealType ?? undefined,
+        cuisineRegion: cuisineRegion ?? undefined,
         page: nextPage,
         limit: 20,
       });
@@ -82,7 +98,7 @@ export function DiscoverScreen({ navigation, route }: Props) {
     } finally {
       setLoading(false);
     }
-  }, [tag, mealType]);
+  }, [tag, mealType, cuisineRegion]);
 
   const runSearch = useCallback(async () => {
     if (query.trim().length < 2) {
@@ -118,11 +134,12 @@ export function DiscoverScreen({ navigation, route }: Props) {
 
   useEffect(() => {
     if (query.trim().length === 0) void loadLibrary(1);
-  }, [tag, mealType, query, loadLibrary]);
+  }, [tag, mealType, cuisineRegion, query, loadLibrary]);
 
   useEffect(() => {
     setMealType(route.params?.mealType ?? null);
-  }, [route.params?.mealType]);
+    setCuisineRegion(route.params?.cuisineRegion ?? null);
+  }, [route.params?.mealType, route.params?.cuisineRegion]);
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
@@ -162,6 +179,17 @@ export function DiscoverScreen({ navigation, route }: Props) {
           >
             <AppText variant="label" color={colors.onPrimary}>
               {mealType} ×
+            </AppText>
+          </Pressable>
+        )}
+
+        {cuisineRegion && (
+          <Pressable
+            style={styles.activeMeal}
+            onPress={() => setCuisineRegion(null)}
+          >
+            <AppText variant="label" color={colors.onPrimary}>
+              {REGION_LABELS[cuisineRegion]} x
             </AppText>
           </Pressable>
         )}

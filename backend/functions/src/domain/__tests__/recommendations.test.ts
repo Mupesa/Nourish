@@ -44,6 +44,7 @@ function recipe(overrides: Partial<Recipe>): Recipe {
     submittedBy: null,
     mealTypes: ["dinner"],
     cuisine: "Mediterranean & Middle Eastern",
+    cuisineRegion: "western",
     dietaryTags: [],
     difficulty: "medium",
     servings: 2,

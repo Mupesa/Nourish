@@ -39,7 +39,7 @@ const manifestPath = resolve(
   __dirname,
   "../../../../content/recipes/image-manifest.json",
 );
-const approvedImageIds = new Set(
+const manifestApprovedImageIds = new Set(
   (
     JSON.parse(readFileSync(manifestPath, "utf8")) as ImageManifestItem[]
   )
@@ -61,7 +61,10 @@ async function main(): Promise<void> {
       `${recipe.id}.webp`,
     );
     const imageReady =
-      approvedImageIds.has(recipe.id) && existsSync(deliveryFile);
+      (manifestApprovedImageIds.has(recipe.id) ||
+        (!manifestApprovedImageIds.has(recipe.id) &&
+          recipe.id.startsWith("world-"))) &&
+      existsSync(deliveryFile);
     const seededRecipe = process.env.STORAGE_EMULATOR_HOST && imageReady
       ? {
           ...recipe,

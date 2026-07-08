@@ -134,6 +134,13 @@ export type RecipeDifficulty = "easy" | "medium" | "hard";
 export type RecipeSource = "curated" | "community" | "spoonacular";
 export type RecipeStatus = "approved" | "pending" | "rejected";
 export type RecipeMealType = "breakfast" | "lunch" | "dinner" | "snack";
+export type RecipeCuisineRegion =
+  | "southern_africa"
+  | "west_africa"
+  | "east_africa"
+  | "asian"
+  | "indian"
+  | "western";
 
 export interface RecipeIngredient {
   name: string;
@@ -163,6 +170,8 @@ export interface Recipe {
   mealTypes: RecipeMealType[];
   /** Human-readable cuisine group used for discovery filters. */
   cuisine: string;
+  /** Normalised cuisine region used by Cook Around the World filters. */
+  cuisineRegion: RecipeCuisineRegion;
   dietaryTags: DietaryPreference[];
   difficulty: RecipeDifficulty;
   servings: number;

@@ -118,6 +118,13 @@ export interface OnboardingPayload {
 export type RecipeDifficulty = "easy" | "medium" | "hard";
 export type RecipeSourceKind = "curated" | "community" | "spoonacular";
 export type RecipeMealType = "breakfast" | "lunch" | "dinner" | "snack";
+export type RecipeCuisineRegion =
+  | "southern_africa"
+  | "west_africa"
+  | "east_africa"
+  | "asian"
+  | "indian"
+  | "western";
 
 export interface RecipeIngredient {
   name: string;
@@ -140,6 +147,7 @@ export interface Recipe {
   source: RecipeSourceKind;
   mealTypes: RecipeMealType[];
   cuisine: string;
+  cuisineRegion: RecipeCuisineRegion | null;
   dietaryTags: DietaryPreference[];
   difficulty: RecipeDifficulty;
   servings: number;

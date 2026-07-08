@@ -2,6 +2,7 @@ import { api } from "./client";
 import {
   DietaryPreference,
   Recipe,
+  RecipeCuisineRegion,
   RecipeMealType,
   RecipeRecommendation,
   RecipeSearchResult,
@@ -12,6 +13,7 @@ interface ListParams {
   tag?: DietaryPreference;
   mealType?: RecipeMealType;
   cuisine?: string;
+  cuisineRegion?: RecipeCuisineRegion;
   page?: number;
   limit?: number;
 }
@@ -41,6 +43,7 @@ export async function listRecipes(
   if (params.tag) qs.set("tag", params.tag);
   if (params.mealType) qs.set("mealType", params.mealType);
   if (params.cuisine) qs.set("cuisine", params.cuisine);
+  if (params.cuisineRegion) qs.set("cuisineRegion", params.cuisineRegion);
   if (params.page) qs.set("page", String(params.page));
   if (params.limit) qs.set("limit", String(params.limit));
   const suffix = qs.toString() ? `?${qs.toString()}` : "";
@@ -57,6 +60,7 @@ export async function getRecommendedRecipes(
   if (params.tag) qs.set("tag", params.tag);
   if (params.mealType) qs.set("mealType", params.mealType);
   if (params.cuisine) qs.set("cuisine", params.cuisine);
+  if (params.cuisineRegion) qs.set("cuisineRegion", params.cuisineRegion);
   if (params.page) qs.set("page", String(params.page));
   if (params.limit) qs.set("limit", String(params.limit));
   if (params.includeReasons != null) {
@@ -139,6 +143,7 @@ export async function getRecipe(
       source: "spoonacular",
       mealTypes: [],
       cuisine: "Global",
+      cuisineRegion: null,
       dietaryTags: recipe.dietaryTags,
       difficulty: "medium",
       servings: recipe.servings,

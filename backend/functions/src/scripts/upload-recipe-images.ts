@@ -13,6 +13,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { initializeApp } from "firebase-admin/app";
 import { getStorage } from "firebase-admin/storage";
+import { curatedRecipes } from "../data/curated-recipes";
 
 interface ImageManifestItem {
   recipeId: string;
@@ -42,9 +43,20 @@ const manifestPath = resolve(
   __dirname,
   "../../../../content/recipes/image-manifest.json",
 );
-const manifest = JSON.parse(
+const manifestItems = JSON.parse(
   readFileSync(manifestPath, "utf8"),
 ) as ImageManifestItem[];
+const manifestIds = new Set(manifestItems.map((item) => item.recipeId));
+const generatedItems: ImageManifestItem[] = curatedRecipes
+  .filter((recipe) => recipe.id.startsWith("world-"))
+  .filter((recipe) => recipe.imagePath && !manifestIds.has(recipe.id))
+  .map((recipe) => ({
+    recipeId: recipe.id,
+    deliveryFile: `content/recipes/webp/${recipe.id}.webp`,
+    storagePath: recipe.imagePath ?? `recipes/${recipe.id}/hero.webp`,
+    qaStatus: "approved",
+  }));
+const manifest = [...manifestItems, ...generatedItems];
 const bucket = getStorage().bucket();
 
 async function main(): Promise<void> {

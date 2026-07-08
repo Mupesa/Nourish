@@ -14,6 +14,10 @@ function required(value: string | undefined, name: string): string {
 }
 
 export const env = {
+  homeVariant:
+    process.env.EXPO_PUBLIC_HOME_VARIANT === "editorial"
+      ? "editorial"
+      : "classic",
   firebase: {
     apiKey: required(
       process.env.EXPO_PUBLIC_FIREBASE_API_KEY,

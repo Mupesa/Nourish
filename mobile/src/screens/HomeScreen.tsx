@@ -14,10 +14,8 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { fetchDay } from "../api/diary";
 import { getRecommendedRecipes } from "../api/recipes";
 import { AppText } from "../components/AppText";
-import { CalorieRing } from "../components/CalorieRing";
 import { InlineError } from "../components/InlineError";
 import { RecipeCard } from "../components/RecipeCard";
 import { colors, radius, spacing } from "../theme/tokens";
@@ -27,14 +25,12 @@ import {
   RecipeMealType,
   RecipeRecommendation,
 } from "../types/domain";
-import { todayLocal } from "../utils/date";
 
 type Props = BottomTabScreenProps<MainTabParamList, "Home">;
 
 interface HomeSection {
   key: string;
   title: string;
-  subtitle: string;
   recipes: RecipeRecommendation[];
 }
 
@@ -58,8 +54,6 @@ const CATEGORIES: {
 ];
 
 export function HomeScreen({ navigation }: Props) {
-  const [consumed, setConsumed] = useState(0);
-  const [goal, setGoal] = useState(0);
   const [recommended, setRecommended] = useState<RecipeRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -80,12 +74,10 @@ export function HomeScreen({ navigation }: Props) {
   const load = useCallback(async () => {
     setError(null);
     try {
-      const [day, recipes] = await Promise.all([
-        fetchDay(todayLocal()),
-        getRecommendedRecipes({ limit: 18, includeReasons: true }),
-      ]);
-      setConsumed(day.entry.totals.kcal);
-      setGoal(day.goalKcal);
+      const recipes = await getRecommendedRecipes({
+        limit: 14,
+        includeReasons: true,
+      });
       setRecommended(recipes.recipes);
     } catch (e) {
       console.warn("[home] load failed", e);
@@ -128,10 +120,10 @@ export function HomeScreen({ navigation }: Props) {
         <View style={styles.header}>
           <View style={styles.headerCopy}>
             <AppText variant="label" color={warmColors.berry}>
-              Today in your kitchen
+              Nourish
             </AppText>
             <AppText variant="display" color={colors.onSurface}>
-              What sounds good?
+              What should we cook?
             </AppText>
           </View>
           <Pressable
@@ -147,28 +139,10 @@ export function HomeScreen({ navigation }: Props) {
           </Pressable>
         </View>
 
-        <View style={styles.rhythmPanel}>
-          <View style={styles.ringWrap}>
-            <CalorieRing consumed={consumed} goal={goal} />
-          </View>
-          <View style={styles.rhythmCopy}>
-            <AppText variant="bodySemiBold">Today's rhythm</AppText>
-            <AppText variant="body" color={colors.onSurfaceVariant}>
-              {consumed.toLocaleString()} of {goal.toLocaleString()} kcal logged.
-              Keep cooking around what feels doable.
-            </AppText>
-          </View>
-        </View>
-
         {todayPick && (
           <View style={styles.featureSection}>
             <View style={styles.sectionHead}>
-              <View>
-                <AppText variant="label" color={warmColors.berry}>
-                  Today's pick
-                </AppText>
-                <AppText variant="headline">Start here</AppText>
-              </View>
+              <AppText variant="headline">Today's pick</AppText>
             </View>
             <RecipeCard
               variant="feature"
@@ -178,21 +152,46 @@ export function HomeScreen({ navigation }: Props) {
               cookMins={todayPick.recipe.cookMins}
               difficulty={todayPick.recipe.difficulty}
               mealTypes={todayPick.recipe.mealTypes}
-              reason={todayPick.reasons[0]?.text}
               onPress={() => openRecipe(todayPick.recipe)}
             />
           </View>
         )}
 
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoryRail}
+        >
+          {CATEGORIES.map((category) => (
+            <Pressable
+              key={category.mealType}
+              accessibilityRole="button"
+              style={({ pressed }) => [
+                styles.categoryPill,
+                pressed && styles.pressed,
+              ]}
+              onPress={() =>
+                navigation.navigate("Discover", {
+                  mealType: category.mealType,
+                })
+              }
+            >
+              <MaterialIcons
+                name={category.icon}
+                size={18}
+                color={colors.primary}
+              />
+              <AppText variant="bodySemiBold" color={colors.onSurface}>
+                {category.label}
+              </AppText>
+            </Pressable>
+          ))}
+        </ScrollView>
+
         {sections.map((section) => (
           <View key={section.key} style={styles.feedSection}>
             <View style={styles.sectionHead}>
-              <View style={styles.sectionCopy}>
-                <AppText variant="headline">{section.title}</AppText>
-                <AppText variant="body" color={colors.onSurfaceVariant}>
-                  {section.subtitle}
-                </AppText>
-              </View>
+              <AppText variant="headline">{section.title}</AppText>
               <AppText
                 variant="bodySemiBold"
                 color={colors.primary}
@@ -216,7 +215,6 @@ export function HomeScreen({ navigation }: Props) {
                   difficulty={recipe.difficulty}
                   mealTypes={recipe.mealTypes}
                   tag={getPrimaryTag(recipe)}
-                  reason={reasons[0]?.text}
                   style={styles.railCard}
                   onPress={() => openRecipe(recipe)}
                 />
@@ -224,41 +222,6 @@ export function HomeScreen({ navigation }: Props) {
             </ScrollView>
           </View>
         ))}
-
-        <View style={styles.categoryBand}>
-          <View style={styles.sectionCopy}>
-            <AppText variant="headline">Browse by mood</AppText>
-            <AppText variant="body" color={colors.onSurfaceVariant}>
-              Jump straight into the meal you are trying to solve.
-            </AppText>
-          </View>
-          <View style={styles.catGrid}>
-            {CATEGORIES.map((category) => (
-              <Pressable
-                key={category.mealType}
-                accessibilityRole="button"
-                style={({ pressed }) => [
-                  styles.catTile,
-                  pressed && styles.pressed,
-                ]}
-                onPress={() =>
-                  navigation.navigate("Discover", {
-                    mealType: category.mealType,
-                  })
-                }
-              >
-                <MaterialIcons
-                  name={category.icon}
-                  size={22}
-                  color={colors.primary}
-                />
-                <AppText variant="bodySemiBold" color={colors.onSurface}>
-                  {category.label}
-                </AppText>
-              </Pressable>
-            ))}
-          </View>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -289,32 +252,22 @@ function buildHomeFeed(recommended: RecipeRecommendation[]) {
     afterPick,
     6,
   );
-  const savedInspiredRecipes = pickDistinctRecipes(afterPick.slice(6), afterPick, 6);
 
   const sections: HomeSection[] = [
     {
       key: "tonight",
       title: "Tonight",
-      subtitle: "Dinner ideas with enough structure to make the evening easier.",
       recipes: tonightRecipes,
     },
     {
       key: "quick-comfort",
-      title: "Quick comfort meals",
-      subtitle: "Warm, practical picks that do not ask too much of you.",
+      title: "Quick comfort",
       recipes: quickComfortRecipes,
     },
     {
       key: "seasonal",
-      title: "Fresh right now",
-      subtitle: "Lighter, colorful recipes for a more generous plate.",
+      title: "Fresh picks",
       recipes: seasonalRecipes,
-    },
-    {
-      key: "saved-inspired",
-      title: "For another night",
-      subtitle: "A few more ideas to keep nearby when dinner needs a softer landing.",
-      recipes: savedInspiredRecipes,
     },
   ];
 
@@ -358,12 +311,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  content: { padding: spacing.gutter, gap: spacing.md, paddingBottom: 112 },
+  content: { padding: spacing.gutter, gap: spacing.sm, paddingBottom: 112 },
   header: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
     gap: spacing.sm,
+    marginBottom: spacing.xs,
   },
   headerCopy: { flex: 1, gap: spacing.xs },
   discoverButton: {
@@ -375,46 +329,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   pressed: { opacity: 0.85 },
-  rhythmPanel: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.sm,
-    backgroundColor: warmColors.panel,
-    borderRadius: radius.default,
-    borderWidth: 1,
-    borderColor: warmColors.peach,
-    padding: spacing.sm,
-  },
-  ringWrap: { width: 96, alignItems: "center" },
-  rhythmCopy: { flex: 1, gap: spacing.xs },
   featureSection: { gap: spacing.sm },
-  feedSection: { gap: spacing.sm },
+  feedSection: { gap: spacing.base, marginTop: spacing.base },
   sectionHead: {
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "center",
     justifyContent: "space-between",
     gap: spacing.sm,
   },
-  sectionCopy: { flex: 1, gap: spacing.xs },
   rail: { gap: spacing.sm, paddingRight: spacing.gutter },
   railCard: { width: 238 },
-  categoryBand: {
-    gap: spacing.sm,
-    backgroundColor: warmColors.peachSoft,
-    borderRadius: radius.default,
-    padding: spacing.sm,
+  categoryRail: {
+    gap: spacing.base,
+    paddingVertical: spacing.xs,
+    paddingRight: spacing.gutter,
   },
-  catGrid: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
-  catTile: {
-    flexGrow: 1,
-    flexBasis: "45%",
-    minHeight: 76,
+  categoryPill: {
+    minWidth: 118,
+    minHeight: 44,
     borderRadius: radius.default,
     backgroundColor: warmColors.panel,
     borderWidth: 1,
     borderColor: warmColors.peach,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: spacing.xs,
+    paddingHorizontal: spacing.sm,
   },
 });

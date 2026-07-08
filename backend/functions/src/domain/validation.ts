@@ -115,6 +115,15 @@ export const recipeMealTypeSchema = z.enum([
   "snack",
 ]);
 
+export const recipeCuisineRegionSchema = z.enum([
+  "southern_africa",
+  "west_africa",
+  "east_africa",
+  "asian",
+  "indian",
+  "western",
+]);
+
 /** Community recipe submission (POST /recipes/community). */
 export const communityRecipeSchema = z.object({
   title: z.string().min(2).max(120),
@@ -123,6 +132,7 @@ export const communityRecipeSchema = z.object({
   imagePath: z.string().max(512).nullable().default(null),
   mealTypes: z.array(recipeMealTypeSchema).min(1).max(4),
   cuisine: z.string().trim().min(2).max(80),
+  cuisineRegion: recipeCuisineRegionSchema.default("western"),
   dietaryTags: z.array(dietaryPreferenceSchema).max(6).default([]),
   difficulty: z.enum(["easy", "medium", "hard"]).default("medium"),
   servings: z.number().int().min(1).max(50).default(2),
@@ -161,6 +171,7 @@ export const recipeQuerySchema = z.object({
   tag: dietaryPreferenceSchema.optional(),
   mealType: recipeMealTypeSchema.optional(),
   cuisine: z.string().trim().min(2).max(80).optional(),
+  cuisineRegion: recipeCuisineRegionSchema.optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(50).default(20),
 });

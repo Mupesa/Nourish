@@ -29,6 +29,9 @@ function matchesQuery(recipe: Recipe, q: RecipeQueryInput): boolean {
   if (q.tag && !recipe.dietaryTags.includes(q.tag as DietaryPreference))
     return false;
   if (q.mealType && !recipe.mealTypes.includes(q.mealType)) return false;
+  if (q.cuisineRegion && recipe.cuisineRegion !== q.cuisineRegion) {
+    return false;
+  }
   if (
     q.cuisine &&
     normalizeCuisine(recipe.cuisine) !== normalizeCuisine(q.cuisine)
@@ -38,7 +41,7 @@ function matchesQuery(recipe: Recipe, q: RecipeQueryInput): boolean {
   if (q.q) {
     const needle = q.q.toLowerCase();
     const hay =
-      `${recipe.title} ${recipe.description} ${recipe.cuisine}`.toLowerCase();
+      `${recipe.title} ${recipe.description} ${recipe.cuisine} ${recipe.cuisineRegion}`.toLowerCase();
     if (!hay.includes(needle)) return false;
   }
   return true;
@@ -101,6 +104,7 @@ export async function submitCommunityRecipe(
     submittedBy: uid,
     mealTypes: input.mealTypes,
     cuisine: input.cuisine,
+    cuisineRegion: input.cuisineRegion,
     dietaryTags: input.dietaryTags as DietaryPreference[],
     difficulty: input.difficulty,
     servings: input.servings,
