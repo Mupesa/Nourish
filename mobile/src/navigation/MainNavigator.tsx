@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { CommunityScreen } from "../screens/CommunityScreen";
+import { CuisineDetailScreen } from "../screens/CuisineDetailScreen";
 import { DiaryScreen } from "../screens/DiaryScreen";
 import { DiscoverScreen } from "../screens/DiscoverScreen";
 import { CookModeScreen } from "../screens/CookModeScreen";
@@ -63,6 +64,11 @@ export function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="CuisineDetail"
+        component={CuisineDetailScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="LogMeal"
         component={LogMealScreen}

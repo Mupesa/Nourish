@@ -32,6 +32,7 @@ export type MainTabParamList = {
 
 export type MainStackParamList = {
   Tabs: NavigatorScreenParams<MainTabParamList>;
+  CuisineDetail: { cuisineRegion: RecipeCuisineRegion };
   LogMeal: { date: string };
   RecipeDetail: { recipeId: string; source: "recipe" | "spoonacular" };
   CookMode: {

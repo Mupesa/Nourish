@@ -3,6 +3,7 @@
  * classic home can remain available behind EXPO_PUBLIC_HOME_VARIANT.
  */
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,7 +17,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getRecommendedRecipes } from "../api/recipes";
+import { getRecommendedRecipes, searchExternalRecipes } from "../api/recipes";
 import { AppText } from "../components/AppText";
 import { InlineError } from "../components/InlineError";
 import { MainStackParamList, MainTabParamList } from "../navigation/types";
@@ -30,6 +31,8 @@ import {
 
 type Props = BottomTabScreenProps<MainTabParamList, "Home">;
 type MealFilter = RecipeMealType | "all";
+const TODAY_PICK_STORAGE_KEY = "nourish.home.todayPick";
+const TODAY_PICK_TTL_MS = 24 * 60 * 60 * 1000;
 
 interface CuisineCard {
   key: string;
@@ -42,7 +45,23 @@ interface CuisineCard {
 interface RecipeShelf {
   key: string;
   title: string;
-  recipes: RecipeRecommendation[];
+  recipes: HomeRecipeCard[];
+}
+
+interface HomeRecipeCard {
+  id: string;
+  title: string;
+  imageUrl: string | null;
+  kcal: number;
+  cookMins?: number;
+  source: "recipe" | "spoonacular";
+  recipe?: Recipe;
+  reason?: string;
+}
+
+interface StoredTodayPick {
+  recipeId: string;
+  expiresAt: number;
 }
 
 const editorial = {
@@ -115,11 +134,123 @@ const CUISINES = [
   },
 ] as const;
 
+const WORLD_RECIPE_IDS: Record<RecipeCuisineRegion, string[]> = {
+  southern_africa: [
+    "world-001",
+    "world-002",
+    "world-003",
+    "world-004",
+    "world-005",
+    "world-006",
+  ],
+  west_africa: [
+    "world-007",
+    "world-008",
+    "world-009",
+    "world-010",
+    "world-011",
+    "world-012",
+  ],
+  east_africa: [
+    "world-013",
+    "world-014",
+    "world-015",
+    "world-016",
+    "world-017",
+    "world-018",
+  ],
+  asian: [
+    "world-019",
+    "world-020",
+    "world-021",
+    "world-022",
+    "world-023",
+    "world-024",
+  ],
+  indian: [
+    "world-025",
+    "world-026",
+    "world-027",
+    "world-028",
+    "world-029",
+    "world-030",
+  ],
+  western: [
+    "world-031",
+    "world-032",
+    "world-033",
+    "world-034",
+    "world-035",
+    "world-036",
+  ],
+};
+
+const loadExternalHomeInspiration = async (): Promise<HomeRecipeCard[]> => {
+  try {
+    const [quick, dinner] = await Promise.all([
+      searchExternalRecipes("quick healthy meals", 8),
+      searchExternalRecipes("easy dinner recipes", 8),
+    ]);
+    return shuffleHomeCards(
+      [...quick, ...dinner].map((recipe) => ({
+        id: String(recipe.spoonacularId),
+        title: recipe.title,
+        imageUrl: recipe.imageUrl,
+        kcal: recipe.kcal,
+        source: "spoonacular" as const,
+        reason: "More recipe ideas from Spoonacular",
+      })),
+    ).slice(0, 10);
+  } catch (e) {
+    console.warn("[editorial-home] external inspiration failed", e);
+    return [];
+  }
+};
+
+async function resolveTodayPickId(
+  recipes: RecipeRecommendation[],
+): Promise<string | null> {
+  if (recipes.length === 0) return null;
+
+  try {
+    const storedRaw = await AsyncStorage.getItem(TODAY_PICK_STORAGE_KEY);
+    const stored = storedRaw
+      ? (JSON.parse(storedRaw) as Partial<StoredTodayPick>)
+      : null;
+    const storedRecipeExists =
+      typeof stored?.recipeId === "string" &&
+      recipes.some(({ recipe }) => recipe.id === stored.recipeId);
+
+    if (
+      storedRecipeExists &&
+      typeof stored?.expiresAt === "number" &&
+      stored.expiresAt > Date.now()
+    ) {
+      return stored.recipeId ?? null;
+    }
+
+    const nextRecipe = recipes[Math.floor(Math.random() * recipes.length)]?.recipe;
+    if (!nextRecipe) return null;
+    await AsyncStorage.setItem(
+      TODAY_PICK_STORAGE_KEY,
+      JSON.stringify({
+        recipeId: nextRecipe.id,
+        expiresAt: Date.now() + TODAY_PICK_TTL_MS,
+      } satisfies StoredTodayPick),
+    );
+    return nextRecipe.id;
+  } catch (e) {
+    console.warn("[editorial-home] today pick persistence failed", e);
+    return recipes[Math.floor(Math.random() * recipes.length)]?.recipe.id ?? null;
+  }
+}
+
 export function EditorialHomeScreen({ navigation }: Props) {
   const [recommended, setRecommended] = useState<RecipeRecommendation[]>([]);
-  const [regionalRecipes, setRegionalRecipes] = useState<
-    Partial<Record<RecipeCuisineRegion, RecipeRecommendation[]>>
-  >({});
+  const [externalInspiration, setExternalInspiration] = useState<HomeRecipeCard[]>(
+    [],
+  );
+  const [todayPickId, setTodayPickId] = useState<string | null>(null);
   const [activeMealFilter, setActiveMealFilter] = useState<MealFilter>("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,28 +271,14 @@ export function EditorialHomeScreen({ navigation }: Props) {
   const load = useCallback(async () => {
     setError(null);
     try {
-      const [recipes, ...regionPages] = await Promise.all([
-        getRecommendedRecipes({
-          limit: 24,
-          includeReasons: true,
-        }),
-        ...CUISINES.map((cuisine) =>
-          getRecommendedRecipes({
-            cuisineRegion: cuisine.cuisineRegion,
-            limit: 6,
-            includeReasons: false,
-          }),
-        ),
-      ]);
+      const recipes = await getRecommendedRecipes({
+        limit: 24,
+        includeReasons: true,
+      });
       setRecommended(recipes.recipes);
-      setRegionalRecipes(
-        Object.fromEntries(
-          CUISINES.map((cuisine, index) => [
-            cuisine.cuisineRegion,
-            regionPages[index]?.recipes ?? [],
-          ]),
-        ),
-      );
+      setTodayPickId(await resolveTodayPickId(recipes.recipes));
+      const external = await loadExternalHomeInspiration();
+      setExternalInspiration(external);
     } catch (e) {
       console.warn("[editorial-home] load failed", e);
       setError("Couldn't load your home feed. Check your connection and try again.");
@@ -177,8 +294,14 @@ export function EditorialHomeScreen({ navigation }: Props) {
   );
 
   const { todayPick, cuisineCards, shelves } = useMemo(
-    () => buildEditorialFeed(recommended, activeMealFilter, regionalRecipes),
-    [recommended, activeMealFilter, regionalRecipes],
+    () =>
+      buildEditorialFeed(
+        recommended,
+        activeMealFilter,
+        externalInspiration,
+        todayPickId,
+      ),
+    [recommended, activeMealFilter, externalInspiration, todayPickId],
   );
 
   if (loading) {
@@ -210,12 +333,6 @@ export function EditorialHomeScreen({ navigation }: Props) {
             </AppText>
           </View>
           <View style={styles.headerActions}>
-            <CircleButton
-              icon="notifications-none"
-              label="Notifications"
-              onPress={() => undefined}
-              muted
-            />
             <CircleButton
               icon="search"
               label="Open Discover"
@@ -292,7 +409,7 @@ export function EditorialHomeScreen({ navigation }: Props) {
                 key={cuisine.key}
                 cuisine={cuisine}
                 onPress={() =>
-                  navigation.navigate("Discover", {
+                  parent?.navigate("CuisineDetail", {
                     cuisineRegion: cuisine.cuisineRegion,
                   })
                 }
@@ -321,11 +438,18 @@ export function EditorialHomeScreen({ navigation }: Props) {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.recipeRail}
             >
-              {shelf.recipes.map(({ recipe }) => (
+              {shelf.recipes.map((recipe) => (
                 <SmallRecipeCard
-                  key={`${shelf.key}-${recipe.id}`}
+                  key={`${shelf.key}-${recipe.source}-${recipe.id}`}
                   recipe={recipe}
-                  onPress={() => openRecipe(recipe)}
+                  onPress={() =>
+                    recipe.source === "recipe" && recipe.recipe
+                      ? openRecipe(recipe.recipe)
+                      : parent?.navigate("RecipeDetail", {
+                          recipeId: recipe.id,
+                          source: "spoonacular",
+                        })
+                  }
                 />
               ))}
             </ScrollView>
@@ -408,6 +532,7 @@ function HeroRecipeCard({
         source={recipe.imageUrl ? { uri: recipe.imageUrl } : undefined}
         style={styles.heroImage}
         imageStyle={styles.heroImageRadius}
+        resizeMode="cover"
       >
         {!recipe.imageUrl && <View style={styles.imageFallback} />}
         <View style={styles.heroOverlay} />
@@ -453,6 +578,7 @@ function CuisineTile({
         source={cuisine.imageUrl ? { uri: cuisine.imageUrl } : undefined}
         style={styles.cuisineImage}
         imageStyle={styles.cuisineImageRadius}
+        resizeMode="cover"
       >
         {!cuisine.imageUrl && <View style={styles.imageFallback} />}
         <View style={styles.cuisineOverlay} />
@@ -473,7 +599,7 @@ function SmallRecipeCard({
   recipe,
   onPress,
 }: {
-  recipe: Recipe;
+  recipe: HomeRecipeCard;
   onPress: () => void;
 }) {
   return (
@@ -493,7 +619,7 @@ function SmallRecipeCard({
           {recipe.title}
         </AppText>
         <AppText variant="label" color={editorial.inkSoft}>
-          {formatRecipeMeta(recipe)}
+          {formatHomeCardMeta(recipe)}
         </AppText>
       </View>
     </Pressable>
@@ -503,8 +629,13 @@ function SmallRecipeCard({
 function buildEditorialFeed(
   recommended: RecipeRecommendation[],
   activeMealFilter: MealFilter,
-  regionalRecipes: Partial<Record<RecipeCuisineRegion, RecipeRecommendation[]>>,
+  externalInspiration: HomeRecipeCard[],
+  todayPickId: string | null,
 ) {
+  const todayPick =
+    recommended.find(({ recipe }) => recipe.id === todayPickId) ??
+    recommended[0] ??
+    null;
   const filtered =
     activeMealFilter === "all"
       ? recommended
@@ -512,23 +643,29 @@ function buildEditorialFeed(
           recipe.mealTypes.includes(activeMealFilter),
         );
   const usable = filtered.length > 0 ? filtered : recommended;
-  const todayPick = usable[0] ?? null;
   const pool = todayPick
     ? usable.filter(({ recipe }) => recipe.id !== todayPick.recipe.id)
     : usable;
-  const cuisineCards = buildCuisineCards(pool, regionalRecipes);
+  const cuisineCards = buildCuisineCards(pool);
 
-  const quickRecipes = pickDistinctRecipes(
-    pool.filter(({ recipe }) => recipe.cookMins > 0 && recipe.cookMins <= 30),
-    pool,
+  const localPool = pool.map(toHomeRecipeCard);
+  const quickRecipes = pickRandomHomeCards(
+    [
+      ...localPool.filter((recipe) => recipe.cookMins != null && recipe.cookMins <= 30),
+      ...externalInspiration,
+    ],
+    localPool,
     6,
   );
-  const dinnerRecipes = pickDistinctRecipes(
-    pool.filter(({ recipe }) => recipe.mealTypes.includes("dinner")),
-    pool,
+  const dinnerRecipes = pickRandomHomeCards(
+    [
+      ...localPool.filter((recipe) => recipe.recipe?.mealTypes.includes("dinner")),
+      ...externalInspiration,
+    ],
+    localPool,
     6,
   );
-  const savedStyleRecipes = pickDistinctRecipes(pool.slice(8), pool, 6);
+  const savedStyleRecipes = pickRandomHomeCards(localPool.slice(8), localPool, 6);
 
   const shelves: RecipeShelf[] = [
     { key: "quick", title: "Quick inspiration", recipes: quickRecipes },
@@ -545,10 +682,8 @@ function buildEditorialFeed(
 
 function buildCuisineCards(
   pool: RecipeRecommendation[],
-  regionalRecipes: Partial<Record<RecipeCuisineRegion, RecipeRecommendation[]>>,
 ): CuisineCard[] {
   return CUISINES.map((cuisine, index) => {
-    const regional = regionalRecipes[cuisine.cuisineRegion]?.[0];
     const matched = pool.find(({ recipe }) => {
       const searchable = [
         recipe.title,
@@ -569,7 +704,7 @@ function buildCuisineCards(
       subtitle: cuisine.subtitle,
       cuisineRegion: cuisine.cuisineRegion,
       imageUrl:
-        regional?.recipe.imageUrl ??
+        pickRandomWorldImage(cuisine.cuisineRegion) ??
         matched?.recipe.imageUrl ??
         fallback?.recipe.imageUrl ??
         null,
@@ -577,17 +712,47 @@ function buildCuisineCards(
   });
 }
 
-function pickDistinctRecipes(
-  preferred: RecipeRecommendation[],
-  fallback: RecipeRecommendation[],
+function pickRandomWorldImage(cuisineRegion: RecipeCuisineRegion) {
+  const ids = WORLD_RECIPE_IDS[cuisineRegion];
+  const id = ids[Math.floor(Math.random() * ids.length)];
+  return `https://firebasestorage.googleapis.com/v0/b/nourish-22776.firebasestorage.app/o/recipes%2F${id}%2Fhero.webp?alt=media`;
+}
+
+function toHomeRecipeCard({ recipe, reasons }: RecipeRecommendation): HomeRecipeCard {
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    imageUrl: recipe.imageUrl,
+    kcal: recipe.kcal,
+    cookMins: recipe.cookMins,
+    source: "recipe",
+    recipe,
+    reason: reasons[0]?.text,
+  };
+}
+
+function pickRandomHomeCards(
+  preferred: HomeRecipeCard[],
+  fallback: HomeRecipeCard[],
   limit: number,
 ) {
-  const selected = new Map<string, RecipeRecommendation>();
-  for (const item of [...preferred, ...fallback]) {
+  const selected = new Map<string, HomeRecipeCard>();
+  for (const item of shuffleHomeCards([...preferred, ...fallback])) {
     if (selected.size >= limit) break;
-    selected.set(item.recipe.id, item);
+    selected.set(`${item.source}-${item.id}`, item);
   }
   return Array.from(selected.values());
+}
+
+function shuffleHomeCards(cards: HomeRecipeCard[]) {
+  return [...cards].sort(() => Math.random() - 0.5);
+}
+
+function formatHomeCardMeta(recipe: HomeRecipeCard) {
+  const time =
+    recipe.cookMins != null && recipe.cookMins > 0 ? `${recipe.cookMins} min` : null;
+  const source = recipe.source === "spoonacular" ? "Spoonacular" : null;
+  return [time, source, `${recipe.kcal} kcal`].filter(Boolean).join(" - ");
 }
 
 function formatRecipeMeta(recipe: Recipe) {
@@ -672,8 +837,10 @@ const styles = StyleSheet.create({
   sectionTitleRow: { flexDirection: "row", alignItems: "center", gap: spacing.base },
   sectionTitle: { fontSize: 23, lineHeight: 29 },
   heroImage: {
-    height: 355,
+    height: 278,
     overflow: "hidden",
+    borderRadius: 30,
+    backgroundColor: editorial.sageSoft,
     justifyContent: "flex-end",
   },
   heroImageRadius: { borderRadius: 30 },
@@ -683,14 +850,14 @@ const styles = StyleSheet.create({
   },
   heroOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: editorial.overlay,
+    backgroundColor: "rgba(12, 18, 14, 0.22)",
   },
   saveButton: {
     position: "absolute",
-    top: spacing.sm,
-    right: spacing.sm,
-    width: 48,
-    height: 48,
+    top: spacing.base,
+    right: spacing.base,
+    width: 42,
+    height: 42,
     borderRadius: radius.full,
     backgroundColor: editorial.sage,
     alignItems: "center",
@@ -698,9 +865,9 @@ const styles = StyleSheet.create({
   },
   heroContent: {
     padding: spacing.sm,
-    gap: spacing.xs,
+    gap: 2,
   },
-  heroTitle: { fontSize: 26, lineHeight: 31 },
+  heroTitle: { fontSize: 22, lineHeight: 27 },
   heroButton: {
     alignSelf: "flex-end",
     flexDirection: "row",
@@ -709,22 +876,24 @@ const styles = StyleSheet.create({
     backgroundColor: editorial.terracotta,
     borderRadius: radius.full,
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.base,
+    paddingVertical: spacing.xs,
   },
   cuisineRail: { gap: spacing.sm, paddingRight: spacing.gutter },
   cuisineImage: {
-    width: 275,
-    height: 260,
+    width: 232,
+    height: 170,
     overflow: "hidden",
+    borderRadius: 28,
+    backgroundColor: editorial.sageSoft,
     justifyContent: "flex-end",
   },
-  cuisineImageRadius: { borderRadius: 30 },
+  cuisineImageRadius: { borderRadius: 28 },
   cuisineOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: editorial.overlayDeep,
+    backgroundColor: "rgba(12, 18, 14, 0.38)",
   },
-  cuisineText: { padding: spacing.sm, gap: 2 },
-  cuisineTitle: { fontSize: 24, lineHeight: 30 },
+  cuisineText: { padding: spacing.sm, gap: 1 },
+  cuisineTitle: { fontSize: 20, lineHeight: 25 },
   dots: {
     flexDirection: "row",
     justifyContent: "center",

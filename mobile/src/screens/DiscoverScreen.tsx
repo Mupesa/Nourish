@@ -88,7 +88,11 @@ export function DiscoverScreen({ navigation, route }: Props) {
           source: "recipe" as const,
           reason: reasons[0]?.text,
         }));
-      setCards((current) => (append ? [...current, ...nextCards] : nextCards));
+      const externalCards =
+        append ? [] : await loadExternalDiscoverCards({ mealType, cuisineRegion });
+      setCards((current) =>
+        append ? [...current, ...nextCards] : [...nextCards, ...externalCards],
+      );
       setPage(result.page);
       setTotalPages(result.totalPages);
     } catch (e) {
@@ -108,16 +112,33 @@ export function DiscoverScreen({ navigation, route }: Props) {
     setLoading(true);
     setError(null);
     try {
-      const results = await searchExternalRecipes(query.trim());
-      setCards(
-        results.map((r) => ({
-          id: String(r.spoonacularId),
-          title: r.title,
-          imageUrl: r.imageUrl,
-          kcal: r.kcal,
-          source: "spoonacular" as const,
-        })),
-      );
+      const [local, external] = await Promise.all([
+        getRecommendedRecipes({
+          q: query.trim(),
+          tag: tag ?? undefined,
+          mealType: mealType ?? undefined,
+          cuisineRegion: cuisineRegion ?? undefined,
+          limit: 16,
+        }),
+        loadExternalDiscoverCards({
+          query: query.trim(),
+          mealType,
+          cuisineRegion,
+          limit: 10,
+        }),
+      ]);
+      const localCards = local.recipes.map(({ recipe: r, reasons }) => ({
+        id: r.id,
+        title: r.title,
+        imageUrl: r.imageUrl,
+        kcal: r.kcal,
+        cookMins: r.cookMins,
+        source: "recipe" as const,
+        reason: reasons[0]?.text,
+      }));
+      setCards([...localCards, ...external]);
+      setPage(1);
+      setTotalPages(1);
     } catch (e) {
       console.warn("[discover] search failed", e);
       setCards([]);
@@ -265,6 +286,50 @@ export function DiscoverScreen({ navigation, route }: Props) {
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+async function loadExternalDiscoverCards({
+  query,
+  mealType,
+  cuisineRegion,
+  limit = 8,
+}: {
+  query?: string;
+  mealType?: RecipeMealType | null;
+  cuisineRegion?: RecipeCuisineRegion | null;
+  limit?: number;
+}): Promise<Card[]> {
+  try {
+    const results = await searchExternalRecipes(
+      query ?? buildExternalDiscoverQuery(mealType, cuisineRegion),
+      limit,
+    );
+    return results.map((recipe) => ({
+      id: String(recipe.spoonacularId),
+      title: recipe.title,
+      imageUrl: recipe.imageUrl,
+      kcal: recipe.kcal,
+      source: "spoonacular" as const,
+      reason: "Spoonacular",
+    }));
+  } catch (e) {
+    console.warn("[discover] external recipes failed", e);
+    return [];
+  }
+}
+
+function buildExternalDiscoverQuery(
+  mealType?: RecipeMealType | null,
+  cuisineRegion?: RecipeCuisineRegion | null,
+) {
+  if (cuisineRegion) {
+    return `${REGION_LABELS[cuisineRegion]} recipes`;
+  }
+  if (mealType === "breakfast") return "healthy breakfast recipes";
+  if (mealType === "lunch") return "healthy lunch recipes";
+  if (mealType === "dinner") return "easy dinner recipes";
+  if (mealType === "snack") return "healthy snack recipes";
+  return "quick healthy recipes";
 }
 
 const styles = StyleSheet.create({
